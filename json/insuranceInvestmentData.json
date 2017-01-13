@@ -1,0 +1,52 @@
+[
+  {
+    "id": "1",
+    "memberid": "300",
+    "name": "嘿",
+    "image": "http://wx.qlogo.cn/mmopen/zJ5DBd4VpSzQ2m7z4rpGPDCQqaOHUCBKSCyCWHbPBMrFxTmJ5TichmLd7qqjfZrILYlKwnxEcU47oncjRWFwtL6JNibwHG4uHM/0",
+    "departmentid": "1",
+    "num": "100000",
+    "addtime": "2017-01-06 15:51:05",
+    "departmentname": "测试一部"
+  },
+  {
+    "id": "2",
+    "memberid": "300",
+    "name": "嘿",
+    "image": "http://wx.qlogo.cn/mmopen/zJ5DBd4VpSzQ2m7z4rpGPDCQqaOHUCBKSCyCWHbPBMrFxTmJ5TichmLd7qqjfZrILYlKwnxEcU47oncjRWFwtL6JNibwHG4uHM/0",
+    "departmentid": "1",
+    "num": "100000",
+    "addtime": "2017-01-06 15:51:05",
+    "departmentname": "测试一部"
+  },
+  {
+    "id": "3",
+    "memberid": "300",
+    "name": "嘿",
+    "image": "http://wx.qlogo.cn/mmopen/zJ5DBd4VpSzQ2m7z4rpGPDCQqaOHUCBKSCyCWHbPBMrFxTmJ5TichmLd7qqjfZrILYlKwnxEcU47oncjRWFwtL6JNibwHG4uHM/0",
+    "departmentid": "1",
+    "num": "100000",
+    "addtime": "2017-01-06 15:51:05",
+    "departmentname": "测试一部"
+  },
+  {
+    "id": "4",
+    "memberid": "300",
+    "name": "嘿",
+    "image": "http://wx.qlogo.cn/mmopen/zJ5DBd4VpSzQ2m7z4rpGPDCQqaOHUCBKSCyCWHbPBMrFxTmJ5TichmLd7qqjfZrILYlKwnxEcU47oncjRWFwtL6JNibwHG4uHM/0",
+    "departmentid": "1",
+    "num": "100000",
+    "addtime": "2017-01-06 15:51:05",
+    "departmentname": "测试一部"
+  },
+  {
+    "id": "5",
+    "memberid": "300",
+    "name": "嘿",
+    "image": "http://wx.qlogo.cn/mmopen/zJ5DBd4VpSzQ2m7z4rpGPDCQqaOHUCBKSCyCWHbPBMrFxTmJ5TichmLd7qqjfZrILYlKwnxEcU47oncjRWFwtL6JNibwHG4uHM/0",
+    "departmentid": "1",
+    "num": "100000",
+    "addtime": "2017-01-06 15:51:05",
+    "departmentname": "测试一部"
+  }
+]
