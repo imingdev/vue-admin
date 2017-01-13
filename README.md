@@ -1,16 +1,14 @@
 # vue-admin
 
-## Build Setup
+## 项目构建
 
 ``` bash
-# install dependencies
+# 安装
 npm install
 
-# serve with hot reload at localhost:8080
+# 开启热加载服务 localhost:3000
 npm run dev
 
-# build for production with minification
+# 构建项目
 npm run build
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
