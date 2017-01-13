@@ -15,7 +15,7 @@
 ###安装
 
 ***
-项目地址：（`git clone`）
+项目地址：(`git clone`)
 ```shell
 git clone https://github.com/zzmhot/vue-admin.git
 ```
