@@ -1,7 +1,7 @@
 {
-  "name": "admin-by-live",
+  "name": "vue-admin",
   "version": "1.0.0",
-  "description": "AdminByLive",
+  "description": "vue-admin",
   "author": "zzmhot <zzmhot@163.com>",
   "private": true,
   "scripts": {
@@ -27,7 +27,7 @@
     "connect-history-api-fallback": "^1.1.0",
     "css-loader": "^0.25.0",
     "echarts": "^3.3.2",
-    "element-ui": "^1.1.2",
+    "element-ui": "^1.1.5",
     "eventsource-polyfill": "^0.9.6",
     "exports-loader": "^0.6.3",
     "express": "^4.13.3",

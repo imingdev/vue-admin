@@ -1,6 +1,6 @@
 /**
- * Created by zzmhot on 2017/1/13.
- * 发布版路由配置
+ * Created by zzmhot on 2017/1/17.
+ * 开发版路由配置
  */
 ////////////////////////////////////////////////////////////////////
 //                          _ooOoo_                               //
@@ -28,39 +28,11 @@
  * @author: zzmhot
  * @github: https://github.com/zzmhot
  * @email: zzmhot@163.com
- * @Date: 2017/1/13 14:15
+ * @Date: 2017/1/17 16:02
  * @Copyright(©) 2017 by zzmhot.
  *
  */
 module.exports = [{
-  path: '/course',
-  name: 'course',
-  component: require('pages/course/table'),
-  meta: {
-    authVerify: true
-  }
-}, {
-  path: '/course/update/:id',
-  name: 'courseUpdate',
-  component: require('pages/course/update'),
-  meta: {
-    authVerify: true
-  }
-}, {
-  path: '/course/message/:id',
-  name: 'courseMessage',
-  component: require('pages/course/message/table'),
-  meta: {
-    authVerify: true
-  }
-// }, {
-//   path: '/course/message/:id/add',
-//   name: 'courseMessageAdd',
-//   component: require('pages/course/message/add'),
-//   meta: {
-//     authVerify: true
-//   }
-}, {
   path: '/slide',
   name: 'slide',
   component: require('pages/slide/table'),
@@ -96,6 +68,34 @@ module.exports = [{
     authVerify: true
   }
 }, {
+  path: '/course',
+  name: 'course',
+  component: require('pages/course/table'),
+  meta: {
+    authVerify: true
+  }
+}, {
+  path: '/course/update/:id',
+  name: 'courseUpdate',
+  component: require('pages/course/update'),
+  meta: {
+    authVerify: true
+  }
+}, {
+  path: '/course/message/:id',
+  name: 'courseMessage',
+  component: require('pages/course/message/table'),
+  meta: {
+    authVerify: true
+  }
+// }, {
+//   path: '/course/message/:id/add',
+//   name: 'courseMessageAdd',
+//   component: require('pages/course/message/add'),
+//   meta: {
+//     authVerify: true
+//   }
+}, {
   path: '/media/update/:id',
   name: 'mediaUpdate',
   component: require('pages/media/update'),
@@ -119,27 +119,6 @@ module.exports = [{
   path: '/lecturer/verify',
   name: 'lecturerVerify',
   component: require('pages/lecturer/verify/table'),
-  meta: {
-    authVerify: true
-  }
-}, {
-  path: '/media',
-  name: 'media',
-  component: require('pages/media/table'),
-  meta: {
-    authVerify: true
-  }
-}, {
-  path: '/media/update/:id',
-  name: 'mediaUpdate',
-  component: require('pages/media/update'),
-  meta: {
-    authVerify: true
-  }
-}, {
-  path: '/media/add',
-  name: 'mediaAdd',
-  component: require('pages/media/add'),
   meta: {
     authVerify: true
   }

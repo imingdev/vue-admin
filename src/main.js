@@ -33,7 +33,7 @@
  *
  */
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import router from './router'
 import VueResource from 'vue-resource'
 import store from 'vux/store'
 import 'normalize.css'
@@ -42,11 +42,7 @@ import 'element-ui/lib/theme-default/index.css'
 import 'font-awesome/scss/font-awesome.scss'
 import Plugins from 'plugins'
 import {API_SUCCESS, API_UNLOGIN, API_ERROR, url_user_info} from 'common/URL'
-import {configRouter} from './router-config'
 import App from './App'
-
-// Router
-Vue.use(VueRouter)
 
 // Resource
 Vue.use(VueResource)
@@ -97,8 +93,6 @@ Vue.http.interceptors.push((request, next) => {
 })
 
 Vue.http.options.emulateJSON = true;
-
-const router = configRouter(VueRouter)
 
 //这样可以避免异步操作路由的不同步
 Vue.http.get(url_user_info)
