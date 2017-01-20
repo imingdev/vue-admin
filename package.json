@@ -1,7 +1,7 @@
 {
-  "name": "vue-admin",
+  "name": "admin-by-live",
   "version": "1.0.0",
-  "description": "vue-admin",
+  "description": "AdminByLive",
   "author": "zzmhot <zzmhot@163.com>",
   "private": true,
   "scripts": {

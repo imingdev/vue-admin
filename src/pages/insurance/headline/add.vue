@@ -11,6 +11,21 @@
             <el-form-item label="头条简介:">
               <el-input type="textarea" v-model="form.descip" placeholder="请输入内容"></el-input>
             </el-form-item>
+            <el-form-item label="封面图片:" prop="img">
+              <el-upload
+                :action="image_upload_url"
+                type="drag"
+                :thumbnail-mode="true"
+                :on-preview="handleImgPreview"
+                :on-success="handleImgSuccess"
+                :on-remove="handleImgRemove"
+                :default-file-list="img_file_list"
+              >
+                <i class="el-icon-upload"></i>
+                <div class="el-dragger__text">将文件拖到此处，或<em>点击上传</em></div>
+                <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+              </el-upload>
+            </el-form-item>
             <el-form-item label="上传语音:" prop="url">
               <div class="audio_upload ofh relative">
                       <span v-if="form.url !== null">
@@ -61,10 +76,13 @@
     data(){
       return {
         url_audio_upload: url_file_upload,
+        image_upload_url: url_file_upload,
+        img_file_list: [],
         form: {
           title: null,
           descip: null,
           url: null,
+          img: null,
           isshow: true,
           orderby: 1
         },
@@ -74,12 +92,28 @@
     computed: {
       rules(){
         return {
-          title: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
-          url: [{required: true, message: '语音未上传！', trigger: 'blur'}]
+          title: [{required: true, message: '标题不能为空', trigger: 'blur'}],
+          url: [{required: true, message: '语音未上传！', trigger: 'blur'}],
+          img: [{required: true, message: '封面图片上传！', trigger: 'blur'}]
         }
       }
     },
     methods: {
+      //查看封面图片
+      handleImgPreview(file){
+        this.$ViewImage.open(file.url)
+      },
+      //封面图片上传成功
+      handleImgSuccess(response){
+        if (response.code === API_SUCCESS) {
+          this.form.img = response.data.url
+        }
+      },
+      //封面移除
+      handleImgRemove(){
+        this.form.img = null
+        this.img_file_list = []
+      },
       //上传语音成功
       handle_success_audio(response){
         if (response.code === API_SUCCESS) {
@@ -100,6 +134,7 @@
               title: _data.title,
               descip: _data.descip,
               url: _data.url,
+              img: _data.img,
               isshow: _data.isshow ? DATA_SHOW_TYPE : DATA_HIDE_TYPE,
               orderby: _data.orderby
             })
