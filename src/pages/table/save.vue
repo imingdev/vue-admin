@@ -77,7 +77,6 @@
           zip: 412300
         },
         route_id: this.$route.params.id,
-        image_upload_url: port_file.image_upload,
         load_data: false,
         on_submit_loading: false,
         rules: {
