@@ -21,7 +21,7 @@
     },
     computed: {
       valueIsNull () {
-        return this.formValue.trim() == ''
+        return this.formValue.trim() === ''
       }
     },
     methods: {

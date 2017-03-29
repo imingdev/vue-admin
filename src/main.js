@@ -1,77 +1,64 @@
 /**
- * Created by zzmhot on 2017/1/13.
- * 主服务入口
- */
-////////////////////////////////////////////////////////////////////
-//                          _ooOoo_                               //
-//                         o8888888o                              //
-//                         88" . "88                              //
-//                         (| ^_^ |)                              //
-//                         O\  =  /O                              //
-//                      ____/`---'\____                           //
-//                    .'  \\|     |//  `.                         //
-//                   /  \\|||  :  |||//  \                        //
-//                  /  _||||| -:- |||||-  \                       //
-//                  |   | \\\  -  /// |   |                       //
-//                  | \_|  ''\---/''  |   |                       //
-//                  \  .-\__  `-`  ___/-. /                       //
-//                ___`. .'  /--.--\  `. . ___                     //
-//              ."" '<  `.___\_<|>_/___.'  >'"".                  //
-//            | | :  `- \`.;`\ _ /`;.`/ - ` : | |                 //
-//            \  \ `-.   \_ __\ /__ _/   .-` /  /                 //
-//      ========`-.____`-.___\_____/___.-`____.-'========         //
-//                           `=---='                              //
-//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       //
-//       佛祖保佑            永无BUG              永不修改            //
-////////////////////////////////////////////////////////////////////
-/*
+ * Created by zzmhot on 2017/3/23.
+ *
+ * 主程序入口
+ *
  * @author: zzmhot
  * @github: https://github.com/zzmhot
  * @email: zzmhot@163.com
- * @Date: 2017/1/13 14:15
+ * @Date: 2017/3/23 18:19
  * @Copyright(©) 2017 by zzmhot.
  *
  */
-import Vue from 'vue'
-import router from './router'
-import VueResource from 'vue-resource'
-import store from 'vux/store'
+
+//导入样式
 import 'normalize.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import 'font-awesome/scss/font-awesome.scss'
+//导入Vue框架
+import Vue from 'vue'
+//导入组件
+import router from './router'
+import VueResource from 'vue-resource'
+import NProgress from 'vue-nprogress'
+//导入状态管理器
+import store from 'store'
+//导入自定义插件
 import Plugins from 'plugins'
-import {API_SUCCESS, API_UNLOGIN, API_ERROR, url_user_info} from 'common/URL'
+//导入接口地址
+import {port_user, port_code} from 'common/port_uri'
+//导入主视图文件
 import App from './App'
 
-// Resource
-Vue.use(VueResource)
+const dispatch = store.dispatch
 
-//引入Element 组件
+//使用element-ui
 Vue.use(ElementUI)
 
-//引入插件
+//使用vue-resource
+Vue.use(VueResource)
+
+//使用自定义插件
 Vue.use(Plugins)
 
-const commit = store.commit
+//使用vue-nprogress
+Vue.use(NProgress, {
+  latencyThreshold: 100, // Number of ms before progressbar starts showing, default: 100,
+  router: true, // Show progressbar when navigating routes, default: true
+  http: false // Show progressbar when doing Vue.http, default: true
+})
 
-//请求发送前的处理逻辑
+//vue-resource 请求发送前的处理逻辑
 Vue.http.interceptors.push((request, next) => {
-  let isLoad = store.state.page_loading
-  if (!isLoad) {
-    commit('DATA_LOADING', true)
-  }
   next((response) => {
     let _code = response.body.code
     let _msg = response.body.msg
-    if (!isLoad) {
-      setTimeout(function () {
-        commit('DATA_LOADING', false)
-      }, 200)
-    }
-    if (_code === API_UNLOGIN) {
-      commit('USER_DATA', null)
-      commit('AUTH_LOGIN', false)
+    if (_code === port_code.unlogin) {
+      dispatch('set_user_info', {
+        user: null,
+        is_login: false
+      })
       router.replace({name: "login"})
       Vue.prototype.$message({
         message: _msg,
@@ -79,35 +66,43 @@ Vue.http.interceptors.push((request, next) => {
       })
       return false
     }
-    if (_code === API_ERROR) {
+    if (_code === port_code.error) {
       Vue.prototype.$message({
         message: _msg,
         type: 'error'
       })
       return false
     }
-    if (_code === API_SUCCESS) {
+    if (_code === port_code.success) {
       return response
     }
   })
 })
 
-Vue.http.options.emulateJSON = true;
+Vue.http.options.emulateJSON = true
 
-//这样可以避免异步操作路由的不同步
-Vue.http.get(url_user_info)
+Vue.config.productionTip = false
+
+//为避免登录延迟，先获取用户信息
+Vue.http.get(port_user.info)
   .then(({data:{data, code, msg}}) => {
-    commit('PAGE_LOADING', true)
-    commit('DATA_LOADING', false)
-    if (code == API_SUCCESS) {
-      let isNull = data != null
-      commit('USER_DATA', isNull ? data : null)
-      commit('AUTH_LOGIN', isNull)
+    if (code === port_code.success) {
+      dispatch('set_user_info', {
+        user: data,
+        is_login: true
+      })
     }
-    const app = new Vue({
-      router: router,
-      render: h => h(App)
+    new Vue({
+      router,
+      store,
+      nprogress: new NProgress({parent: '.nprogress-container'}),
+      ...App
     }).$mount('mainbody')
   })
+  .catch(({status, statusText}) => {
+    this.$message({
+      message: '操作失败！错误原因 ' + statusText + ' 状态码 ' + status,
+      type: 'error'
+    })
+  })
 
-window.router = router

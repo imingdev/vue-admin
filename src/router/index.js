@@ -1,72 +1,130 @@
 /**
- * Created by zzmhot on 2017/1/17.
- */
-////////////////////////////////////////////////////////////////////
-//                          _ooOoo_                               //
-//                         o8888888o                              //
-//                         88" . "88                              //
-//                         (| ^_^ |)                              //
-//                         O\  =  /O                              //
-//                      ____/`---'\____                           //
-//                    .'  \\|     |//  `.                         //
-//                   /  \\|||  :  |||//  \                        //
-//                  /  _||||| -:- |||||-  \                       //
-//                  |   | \\\  -  /// |   |                       //
-//                  | \_|  ''\---/''  |   |                       //
-//                  \  .-\__  `-`  ___/-. /                       //
-//                ___`. .'  /--.--\  `. . ___                     //
-//              ."" '<  `.___\_<|>_/___.'  >'"".                  //
-//            | | :  `- \`.;`\ _ /`;.`/ - ` : | |                 //
-//            \  \ `-.   \_ __\ /__ _/   .-` /  /                 //
-//      ========`-.____`-.___\_____/___.-`____.-'========         //
-//                           `=---='                              //
-//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       //
-//       佛祖保佑            永无BUG              永不修改            //
-////////////////////////////////////////////////////////////////////
-/*
+ * Created by zzmhot on 2017/3/23.
+ *
+ * 路由Map
+ *
  * @author: zzmhot
  * @github: https://github.com/zzmhot
  * @email: zzmhot@163.com
- * @Date: 2017/1/17 16:02
+ * @Date: 2017/3/23 18:30
  * @Copyright(©) 2017 by zzmhot.
  *
  */
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from 'vux/store'
-
-const commit = store.commit
+import store from 'store'
 
 Vue.use(VueRouter)
 
 //使用AMD方式加载
 // component: resolve => require(['pages/home'], resolve),
-const routes = process.env.NODE_ENV === 'development' ? require('./router.dev') : require('./router.prod')
+const routes = [{
+  path: '/home',
+  name: 'home',
+  components: {
+    default: require('pages/home'),
+    menuView: require('components/leftSlide')
+  },
+  meta: {
+    title:"主页",
+    auth: true
+  }
+}, {
+  path: '/table/base',
+  name: 'tableBase',
+  components: {
+    default: require('pages/table/base'),
+    menuView: require('components/leftSlide')
+  },
+  meta: {
+    title:"基本表格",
+    auth: true
+  }
+}, {
+  path: '/table/sort',
+  name: 'tableSort',
+  components: {
+    default: require('pages/table/sort'),
+    menuView: require('components/leftSlide')
+  },
+  meta: {
+    title:"排序表格",
+    auth: true
+  }
+}, {
+  path: '/table/update/:id',
+  name: 'tableUpdate',
+  components: {
+    default: require('pages/table/save'),
+    menuView: require('components/leftSlide')
+  },
+  meta: {
+    title:"数据修改",
+    auth: true
+  }
+}, {
+  path: '/table/add',
+  name: 'tableAdd',
+  components: {
+    default: require('pages/table/save'),
+    menuView: require('components/leftSlide')
+  },
+  meta: {
+    title:"添加数据",
+    auth: true
+  }
+}, {
+  path: '/charts/bar',
+  name: 'chartsBar',
+  components: {
+    default: require('pages/charts/bar'),
+    menuView: require('components/leftSlide')
+  },
+  meta: {
+    title:"柱状图表",
+    auth: true
+  }
+}, {
+  path: '/user/login',
+  name: 'login',
+  components: {
+    fullView: require('pages/user/login')
+  }
+}, {
+  path: '',
+  redirect: '/home'
+}, {
+  path: '*',
+  name: 'notPage',
+  components: {
+    fullView: require('pages/error/404')
+  }
+}]
+
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.routerBase,
+  routes,
+  mode: 'hash', //default: hash ,history
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {
       return {x: 0, y: 0}
     }
-  },
-  routes // （缩写）相当于 routes: routes
+  }
 })
+
 //全局路由配置
 //路由开始之前的操作
 router.beforeEach((to, from, next) => {
-  commit('PAGE_LOADING', true)
-  commit('CONTENT_SHOW', true)
   let toName = to.name
-  let fromName = from.name
-  let isLogin = store.state.auth_login
-  if (isLogin && toName === "login") {
+  // let fromName = from.name
+  let is_login = store.state.user_login
+  if (is_login && toName === "login") {
     router.replace({path: "/"})
   }
-  if (to.matched.some(record => record.meta.authVerify)) {
-    if (!isLogin) {
+  if (to.matched.some(record => record.meta.auth)) {
+    if (!is_login) {
       router.replace({name: "login"})
     } else {
       next()
@@ -75,13 +133,10 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+
 //路由完成之后的操作
 router.afterEach(route => {
-  // let routeName = route.name
-  // console.log("到 " + routeName)
-  setTimeout(function () {
-    commit('PAGE_LOADING', false)
-  }, 200)
+
 })
 
-export default router;
+export default router

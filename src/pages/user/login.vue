@@ -1,16 +1,18 @@
 <template>
   <div class="login-body">
-    <div class="loginWarp">
+    <div class="loginWarp"
+         v-loading="load_data"
+         element-loading-text="正在登陆中...">
       <div class="login-title">
         <img src="./images/login_logo.png"/>
       </div>
       <div class="login-form">
         <el-form ref="form" :model="form" :rules="rules" label-width="0">
           <el-form-item prop="user_name" class="login-item">
-            <el-input v-model="form.user_name" placeholder="账户名：" class="form-input"></el-input>
+            <el-input v-model="form.user_name" placeholder="请输入账户名：" class="form-input"></el-input>
           </el-form-item>
           <el-form-item prop="user_password" class="login-item">
-            <el-input type="password" v-model="form.user_password" placeholder="账户密码：" class="form-input"></el-input>
+            <el-input type="password" v-model="form.user_password" placeholder="请输入账户密码：" class="form-input"></el-input>
           </el-form-item>
           <el-form-item class="login-item">
             <el-button size="large" icon="check" class="form-submit" @click="submit_form"></el-button>
@@ -21,7 +23,8 @@
   </div>
 </template>
 <script type="text/javascript">
-  import {API_ERROR, url_user_login} from 'common/URL'
+  import {port_user} from 'common/port_uri'
+
   export default{
     data(){
       return {
@@ -30,29 +33,42 @@
           user_password: ''
         },
         rules: {
-          user_name: [{required: true, message: '请输入账户名', trigger: 'blur'}],
+          user_name: [{required: true, message: '请输入账户名！', trigger: 'blur'}],
           user_password: [{required: true, message: '请输入账户密码！', trigger: 'blur'}]
+        },
+        //请求时的loading效果
+        load_data: false
+      }
+    },
+    mounted(){
+      document.onkeydown = (event) => {
+        var e = event || window.event || arguments.callee.caller.arguments[0]
+        if (e && e.keyCode == 13) {
+          this.submit_form()
         }
       }
     },
-    created() {
-      this.$store.commit('CONTENT_SHOW', false)
-    },
     methods: {
       submit_form() {
-        this.$refs.form.validate((valid) => {
+        let self = this
+        self.$refs.form.validate((valid) => {
           if (valid) {
+            this.load_data = true
             //登录提交
-            this.$http.post(url_user_login, this.form)
-              .then(({data:{data, code, msg}}) => {
-                this.$store.commit('AUTH_LOGIN', true)
-                this.$store.commit('USER_DATA', data)
-                this.$message({
+            self.$http.post(port_user.login, this.form)
+              .then(({data:{data, msg}}) => {
+                let isNull = data !== null
+                self.$store.dispatch('set_user_info', {
+                  user: isNull ? data : null,
+                  is_login: isNull
+                })
+                self.$message({
                   message: msg,
                   type: 'success'
                 })
-                setTimeout(function () {
-                  router.push({path: '/'})
+                setTimeout(() => {
+                  self.$router.replace({path: '/'})
+                  self.load_data = false
                 }, 500)
               })
           } else {
@@ -60,10 +76,13 @@
           }
         })
       }
+    },
+    destroyed(){
+      document.onkeydown = null
     }
   }
 </script>
-<style lang="scss" type="text/css">
+<style lang="scss" type="text/css" rel="stylesheet/scss">
   .login-body {
     position: absolute;
     left: 0;

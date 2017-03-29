@@ -8,13 +8,9 @@
 </template>
 <script type="text/javascript">
   import menuRight from './menuRight'
-  import search from '../../search'
+  import search from 'components/search'
+
   export default{
-    data(){
-      return {
-        msg: 'hello vue'
-      }
-    },
     components: {
       menuRight,
       search

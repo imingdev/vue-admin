@@ -10,14 +10,7 @@
     </div>
   </div>
 </template>
-<script type="text/javascript">
-  export default{
-    created() {
-      this.$store.commit('CONTENT_SHOW', false)
-    }
-  }
-</script>
-<style lang="scss" type="text/css">
+<style lang="scss" type="text/css" rel="stylesheet/scss">
   .error-page {
     position: absolute;
     left: 0;

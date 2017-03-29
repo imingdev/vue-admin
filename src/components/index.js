@@ -1,30 +1,27 @@
 /**
- * Created by admin on 2016/12/8.
+ * Created by zzmhot on 2017/3/23.
+ *
+ * 组件
+ *
+ * @author: zzmhot
+ * @github: https://github.com/zzmhot
+ * @email: zzmhot@163.com
+ * @Date: 2017/3/23 18:41
+ * @Copyright(©) 2017 by zzmhot.
+ *
  */
-import pageLoading from 'components/dialog/loading/page'
-import dataLoading from 'components/dialog/loading/data'
+
 import leftSlide from 'components/leftSlide'
 import mainContent from 'components/mainContent'
-// import barChart from 'components/charts/barChart'
-// import lineChart from 'components/charts/lineChart'
-// import pieChart from 'components/charts/pieChart'
-import messageThumb from 'components/media/message/thumb'
-import editor from 'components/editor'
 import panelTitle from 'components/panelTitle'
-import audioPlay from 'components/audioPlay'
-import vswitch from 'components/vswitch'
+import simpleImageUpload from 'components/simpleImageUpload'
+import bottomToolBar from 'components/bottomToolBar'
+
 
 export {
-  pageLoading,
-  dataLoading,
   leftSlide,
   mainContent,
-  // barChart,
-  // lineChart,
-  // pieChart,
-  messageThumb,
-  editor,
   panelTitle,
-  audioPlay,
-  vswitch
+  simpleImageUpload,
+  bottomToolBar
 }

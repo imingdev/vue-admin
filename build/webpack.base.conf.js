@@ -1,16 +1,11 @@
 var path = require('path')
-var config = require('../config')
 var utils = require('./utils')
-var projectRoot = path.resolve(__dirname, '../')
+var config = require('../config')
+var vueLoaderConfig = require('./vue-loader.conf')
 
-var env = process.env.NODE_ENV
-// check env & config/index.js to decide weither to enable CSS Sourcemaps for the
-// various preprocessor loaders added to vue-loader at the end of this file
-var cssSourceMapDev = (env === 'development' && config.dev.cssSourceMap)
-var cssSourceMapProd = (env === 'production' && config.build.productionSourceMap)
-var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
-
-var webpack = require("webpack")
+function resolve(dir) {
+  return path.join(__dirname, '..', dir)
+}
 
 module.exports = {
   entry: {
@@ -18,62 +13,53 @@ module.exports = {
   },
   output: {
     path: config.build.assetsRoot,
-    publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
-    filename: '[name].js'
+    filename: '[name].js',
+    publicPath: process.env.NODE_ENV === 'production'
+      ? config.build.assetsPublicPath
+      : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['', '.js', '.vue'],
-    fallback: [path.join(__dirname, '../node_modules')],
+    extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue',
-      'src': path.resolve(__dirname, '../src'),
-      'assets': path.resolve(__dirname, '../src/assets'),
-      'common': path.resolve(__dirname, '../src/common'),
-      'vux': path.resolve(__dirname, '../src/vux'),
-      'pages': path.resolve(__dirname, '../src/pages'),
-      'plugins': path.resolve(__dirname, '../src/plugins'),
-      'components': path.resolve(__dirname, '../src/components')
+      'vue$': 'vue/dist/vue.esm.js',
+      'src': resolve('src'),
+      'assets': resolve('src/assets'),
+      'common': resolve('src/common'),
+      'store': resolve('src/store'),
+      'pages': resolve('src/pages'),
+      'plugins': resolve('src/plugins'),
+      'components': resolve('src/components')
     }
   },
-  resolveLoader: {
-    fallback: [path.join(__dirname, '../node_modules')]
-  },
   module: {
-    loaders: [{
-      test: /\.vue$/,
-      loader: 'vue'
-    }, {
-      test: /\.js$/,
-      loader: 'babel',
-      include: projectRoot,
-      exclude: /node_modules/
-    }, {
-      test: /\.json$/,
-      loader: 'json'
-    }, {
-      test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-      loader: 'url',
-      query: {
-        limit: 10000,
-        // name: utils.assetsPath('img/[name].[hash:7].[ext]')
-        name: utils.assetsPath('imgs/[hash:16].[ext]')
+    rules: [
+      {
+        test: /\.vue$/i,
+        loader: 'vue-loader',
+        options: vueLoaderConfig
+      },
+      {
+        test: /\.js$/i,
+        loader: 'babel-loader',
+        include: [resolve('src'), resolve('test')],
+        exclude: resolve('node_modules')
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/i,
+        loader: 'url-loader',
+        query: {
+          limit: 1000,
+          name: utils.assetsPath('images/[hash:8].[ext]')
+        }
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/i,
+        loader: 'url-loader',
+        query: {
+          limit: 1000,
+          name: utils.assetsPath('fonts/[hash:8].[ext]')
+        }
       }
-    }, {
-      test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-      loader: 'url',
-      query: {
-        limit: 10000,
-        // name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
-        name: utils.assetsPath('fonts/[hash:16].[ext]')
-      }
-    }]
-  },
-  vue: {
-    loaders: utils.cssLoaders({sourceMap: useCssSourceMap}),
-    postcss: [
-      require('autoprefixer')({
-        browsers: ['last 8 versions']
-      })
     ]
   }
 }

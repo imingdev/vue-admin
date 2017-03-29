@@ -1,87 +1,74 @@
 <template>
-  <div class="left-side-inner">
-    <div class="logo">
-      <router-link to="/">
-        <img src="./images/logo.png" alt="">
+  <div class="left-side">
+    <div class="left-side-inner">
+      <router-link to="/" class="logo block">
+        <img src="./images/logo.png" alt="AdminX">
       </router-link>
+      <el-menu
+        class="menu-box"
+        theme="dark"
+        router
+        :default-active="$route.path">
+        <div
+          v-for="(item, index) in nav_menu_data"
+          :key="index">
+          <el-menu-item
+            class="menu-list"
+            v-if="typeof item.child === 'undefined'"
+            :index="item.path">
+            <i class="icon fa" :class="item.icon"></i>
+            <span v-text="item.title" class="text"></span>
+          </el-menu-item>
+          <el-submenu
+            :index="item.path"
+            v-else>
+            <template slot="title">
+              <i class="icon fa" :class="item.icon"></i>
+              <span v-text="item.title" class="text"></span>
+            </template>
+            <el-menu-item
+              class="menu-list"
+              v-for="(sub_item, sub_index) in item.child"
+              :index="sub_item.path"
+              :key="sub_index">
+              <!--<i class="icon fa" :class="sub_item.icon"></i>-->
+              <span v-text="sub_item.title" class="text"></span>
+            </el-menu-item>
+          </el-submenu>
+        </div>
+      </el-menu>
     </div>
-    <el-menu class="menu-box" theme="dark">
-      <router-link active-class="is-active" :to="item.path" :index="index" v-for="(item,index) in nav_menu_data"
-                   tag="li" class="menu-list el-menu-item">
-        <i class="icon fa" :class="item.icon"></i>
-        <span v-text="item.title"></span>
-      </router-link>
-    </el-menu>
   </div>
 </template>
 <script type="text/javascript">
   export default{
     data(){
       return {
-        nav_menu_data: process.env.NODE_ENV === 'development' ?
-          [
-            // {
-            //   title: "主页",
-            //   path: "/home",
-            //   icon: "fa-home"
-            // },
-            {
-              title: "幻灯片管理",
-              path: "/slide",
-              icon: "fa-picture-o"
-            }, {
-            title: "自定义菜单",
-            path: "/menu",
-            icon: "fa-bars"
+        nav_menu_data: [{
+          title: "主页",
+          path: "/home",
+          icon: "fa-home"
+        }, {
+          title: "表格管理",
+          path: "/table",
+          icon: "fa-table",
+          child: [{
+            title: "基本表格",
+            path: "/table/base"
           }, {
-            title: "素材管理",
-            path: "/media",
-            icon: "fa-camera-retro"
-          }, {
-            title: "课程管理",
-            path: "/course",
-            icon: "fa-book"
-          }, {
-            title: "讲师认证",
-            path: "/lecturer/verify",
-            icon: "fa-bookmark"
-          }, {
-            title: "保险头条",
-            path: "/insurance/headline",
-            icon: "fa-medkit"
-          }, {
-            title: "投资管理",
-            path: "/insurance/investment/department",
-            icon: "fa-medkit"
+            title: "排序表格",
+            path: "/table/sort"
           }]
-          :
-          [{
-            title: "课程管理",
-            path: "/course",
-            icon: "fa-book"
-          }, {
-            title: "幻灯片管理",
-            path: "/slide",
-            icon: "fa-picture-o"
-          }, {
-            title: "讲师认证",
-            path: "/lecturer/verify",
-            icon: "fa-bookmark"
-          }, {
-            title: "素材管理",
-            path: "/media",
-            icon: "fa-camera-retro"
-          }, {
-            title: "保险头条",
-            path: "/insurance/headline",
-            icon: "fa-medkit"
-          }, {
-            title: "保险管理",
-            path: "/insurance/investment/department",
-            icon: "fa-medkit"
+        }, {
+          title: "图表管理",
+          path: "/charts",
+          icon: "fa-bar-chart-o",
+          child: [{
+            title: "柱状图表",
+            path: "/charts/bar"
           }]
+        }]
       }
     }
   }
-
 </script>

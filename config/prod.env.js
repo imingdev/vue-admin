@@ -1,4 +1,3 @@
 module.exports = {
-  NODE_ENV: '"production"',
-  routerBase: '"/service/"'
+  NODE_ENV: '"production"'
 }

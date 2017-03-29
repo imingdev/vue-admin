@@ -1,62 +1,49 @@
 <template>
-  <div class="menu-right" v-if="user_data">
-    <ul class="notification-menu">
-      <li class="notification-list">
-        <span class="notification-btn" @click="show_menu">
-          <img src="./images/user-avatar.jpg" :alt="user_data.name"/>
-          <span v-text="user_data.name"></span>
+  <div class="menu-right" v-if="get_user_info.is_login">
+    <div class="notification-menu">
+      <el-dropdown trigger="click" class="notification-list">
+        <div class="notification-btn">
+          <img :src="get_user_info.user.avatar" :alt="get_user_info.user.name"/>
+          <span v-text="get_user_info.user.name"></span>
           <span class="icon"></span>
-        </span>
-        <ul class="dropdown-menu" v-show="isShow">
-          <!--<li class="dropdown-list">-->
-            <!--<span class="dropdown-btn" @click="user_click(1)">-->
-              <!--<i class="icon fa fa-user"></i>-->
-              <!--<span>个人信息</span>-->
-            <!--</span>-->
-          <!--</li>-->
-          <!--<li class="dropdown-list">-->
-            <!--<span class="dropdown-btn" @click="user_click(2)">-->
-              <!--<i class="icon fa fa-cog"></i>-->
-              <!--<span>设置</span>-->
-            <!--</span>-->
-          <!--</li>-->
-          <li class="dropdown-list">
-            <span class="dropdown-btn" @click="user_click(0)">
+        </div>
+        <el-dropdown-menu slot="dropdown" class="dropdown-menu">
+          <el-dropdown-item class="dropdown-list">
+            <a href="javascript:" class="dropdown-btn" @click="user_click(0)">
+              <i class="icon fa fa-user"></i>
+              <span>个人信息</span>
+            </a>
+          </el-dropdown-item>
+          <el-dropdown-item class="dropdown-list">
+            <a href="javascript:" class="dropdown-btn" @click="user_click(0)">
+              <i class="icon fa fa-cog"></i>
+              <span>设置</span>
+            </a>
+          </el-dropdown-item>
+          <el-dropdown-item class="dropdown-list">
+            <a href="javascript:" class="dropdown-btn" @click="user_click(0)">
               <i class="icon fa fa-sign-out"></i>
               <span>安全退出</span>
-            </span>
-          </li>
-        </ul>
-      </li>
-    </ul>
-    <div style="position:fixed;width:100%;height:100%;top:0;left:0;z-index:998;" v-if="isShow" @click="show_menu"></div>
+            </a>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
   </div>
 </template>
 <script type="text/javascript">
-  import {url_user_logout, API_SUCCESS} from 'common/URL'
+  import {port_user} from 'common/port_uri'
+  import {mapGetters} from 'vuex'
 
   const USER_OUT = 0
   const USER_INFO = 1
   const USER_SETTING = 2
 
   export default{
-    data(){
-      return {
-        isShow: false,
-        dialog_title: '',
-        dialog_message: '',
-        dialogVisible: false
-      }
-    },
     computed: {
-      user_data() {
-        return this.$store.state.user_data
-      }
+      ...mapGetters(['get_user_info'])
     },
     methods: {
-      show_menu() {
-        this.isShow = !this.isShow
-      },
       user_out(){
         //退出
         this.$confirm('此操作将退出登录, 是否继续?', '提示', {
@@ -64,18 +51,26 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$http.post(url_user_logout)
-            .then(({data:{data, code, msg}}) => {
-              if (code === API_SUCCESS) {
-                this.isShow = false
-                this.$message({
-                  message: msg,
-                  type: 'success'
-                })
-                this.$store.commit('USER_DATA', new Object())
-                this.$store.commit('AUTH_LOGIN', false)
-                router.replace({name: "login"})
-              }
+          this.$http.post(port_user.logout)
+            .then(({data:{msg}}) => {
+              this.isShow = false
+              this.$message({
+                message: msg,
+                type: 'success'
+              })
+              this.$store.dispatch('set_user_info', {
+                user: null,
+                is_login: false
+              })
+              setTimeout(() => {
+                this.$router.replace({name: "login"})
+              }, 500)
+            })
+            .catch(({status, statusText}) => {
+              this.$message({
+                message: '提交失败！错误原因 ' + statusText + ' 状态码 ' + status,
+                type: 'error'
+              })
             })
         }).catch(() => {
 

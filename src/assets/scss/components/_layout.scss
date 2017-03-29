@@ -1,11 +1,5 @@
-.warpBlur {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  filter: blur(5px);
-  overflow: hidden;
+.body-warp {
+  animation: fadeIn .5s ease;
 }
 
 .left-side {
@@ -23,16 +17,20 @@
   }
   .menu-box {
     background-color: #424f63;
-    .menu-list {
+    .menu-list, .el-submenu__title {
       height: 45px;
       line-height: 45px;
       color: #fff;
+      background-color: #424f63;
       .icon {
-        margin-right: 10px;
+        width: 16px;
         font-size: 14px;
       }
+      .text {
+        margin-left: 10px;
+      }
       &.is-active, &:hover {
-        background-color: #353f4f;
+        background-color: #353f4f !important;
         color: #65cea7;
       }
     }
@@ -50,6 +48,7 @@
     width: 100%;
     height: 50px;
     background-color: #fff;
+    border-bottom: 1px solid #eff0f4;
     z-index: 100;
     .search {
       margin: 6.5px 10px;
@@ -106,32 +105,6 @@
             border-left: 4px solid #fff;
           }
         }
-        .dropdown-menu {
-          position: absolute;
-          right: 0;
-          top: 100%;
-          width: 200px;
-          padding: 5px;
-          border-radius: 5px;
-          background: #65cea7;
-          transition: top ease 0.5s;
-          .dropdown-btn {
-            display: block;
-            color: #fff;
-            font-size: 13px;
-            padding: 7px 10px;
-            text-align: left;
-            border-radius: 3px;
-            cursor: pointer;
-            &:hover {
-              background: #2a323f;
-              color: #fff;
-            }
-            .icon {
-              margin-right: 5px;
-            }
-          }
-        }
       }
     }
   }
@@ -163,8 +136,7 @@
       padding: 15px;
       overflow: hidden;
       font-weight: normal;
-      .pagination {
-        float: right;
+      .bottom-toolbar{
         margin-top: 15px;
         padding: 15px 0;
       }
@@ -179,5 +151,35 @@
     bottom: 0;
     width: 100%;
     border-top: 1px solid #eff0f4;
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 200px;
+  padding: 5px;
+  border-radius: 5px;
+  background: #65cea7;
+  .dropdown-list {
+    padding: 0;
+    line-height: normal;
+  }
+  .dropdown-btn {
+    display: block;
+    color: #fff;
+    font-size: 13px;
+    padding: 7px 10px;
+    text-align: left;
+    border-radius: 3px;
+    cursor: pointer;
+    &:hover {
+      background: #2a323f;
+      color: #fff;
+    }
+    .icon {
+      margin-right: 5px;
+    }
   }
 }
