@@ -33,14 +33,14 @@ import App from './App'
 
 const dispatch = store.dispatch
 
+//使用自定义插件
+Vue.use(Plugins)
+
 //使用element-ui
 Vue.use(ElementUI)
 
 //使用vue-resource
 Vue.use(VueResource)
-
-//使用自定义插件
-Vue.use(Plugins)
 
 //使用vue-nprogress
 Vue.use(NProgress, {

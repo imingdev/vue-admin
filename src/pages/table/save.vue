@@ -10,7 +10,7 @@
             <el-form-item label="姓名:" prop="name">
               <el-input v-model="form.name" placeholder="请输入内容" style="width: 250px;"></el-input>
             </el-form-item>
-            <el-form-item label="性别:" prop="sex">
+            <el-form-item label="性别:">
               <el-radio-group v-model="form.sex">
                 <el-radio :label="1">男</el-radio>
                 <el-radio :label="2">女</el-radio>
@@ -81,8 +81,7 @@
         load_data: false,
         on_submit_loading: false,
         rules: {
-          name: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
-          image: [{required: true, message: '图片未上传！', trigger: 'blur'}]
+          name: [{required: true, message: '姓名不能为空', trigger: 'blur'}]
         }
       }
     },
