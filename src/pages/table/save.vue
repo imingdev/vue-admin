@@ -109,27 +109,24 @@
       //提交
       on_submit_form(){
         this.$refs.form.validate((valid) => {
-          if (valid) {
-            this.on_submit_loading = true
-            this.$http.post(port_table.save, this.form)
-              .then(({data:{msg}}) => {
-                this.$message({
-                  message: msg,
-                  type: 'success'
-                })
-                setTimeout(() => {
-                  this.$router.back()
-                }, 500)
-              }).catch(({status, statusText}) => {
+          if (!valid) return false
+          this.on_submit_loading = true
+          this.$http.post(port_table.save, this.form)
+            .then(({data:{msg}}) => {
               this.$message({
-                message: '操作失败！错误原因 ' + statusText + ' 状态码 ' + status,
-                type: 'error'
+                message: msg,
+                type: 'success'
               })
-              this.on_submit_loading = false
+              setTimeout(() => {
+                this.$router.back()
+              }, 500)
+            }).catch(({status, statusText}) => {
+            this.$message({
+              message: '操作失败！错误原因 ' + statusText + ' 状态码 ' + status,
+              type: 'error'
             })
-          } else {
-            return false
-          }
+            this.on_submit_loading = false
+          })
         })
       }
     },
