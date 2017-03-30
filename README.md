@@ -36,4 +36,5 @@ npm run dev
 npm run build
 ```
 ###结束
-有什么想交流的请联系我：[zzmhot@163.com](mailto:zzmhot@163.com)
+
+有什么想交流的请联系我：[zzmhot@163.com](mailto:zzmhot@163.com)，QQ群：307914534
