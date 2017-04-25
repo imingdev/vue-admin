@@ -1,4 +1,4 @@
-# vue-admin
+ vue-admin [Live Demo](http://vueadmin.hinplay.com/)
 
 ### 项目技术架构
 ***
