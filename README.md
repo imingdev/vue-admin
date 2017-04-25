@@ -59,6 +59,14 @@ npm run build
 ├── .postcssrc.js             // autoprefixer的配置文件
 ├── package.json              // 项目配置文件
 </pre>
+
+![image](http://github.com/zzmhot/vue-admin/raw/images/images_1.jpg)
+<br />
+![image](http://github.com/zzmhot/vue-admin/raw/images/images_2.jpg)
+<br />
+![image](http://github.com/zzmhot/vue-admin/raw/images/images_3.jpg)
+<br />
+![image](http://github.com/zzmhot/vue-admin/raw/images/images_4.jpg)
 ### 结束
 
 有什么想交流的请联系我：[zzmhot@163.com](mailto:zzmhot@163.com)，QQ群：[307914534](https://jq.qq.com/?_wv=1027&k=46l9UkQ)
