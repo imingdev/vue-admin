@@ -24,6 +24,7 @@ import VueResource from 'vue-resource'
 import NProgress from 'vue-nprogress'
 //导入状态管理器
 import store from 'store'
+import {SET_USER_INFO} from 'store/actions/type'
 //导入自定义插件
 import Plugins from 'plugins'
 //导入接口地址
@@ -31,7 +32,10 @@ import {port_user, port_code} from 'common/port_uri'
 //导入主视图文件
 import App from './App'
 
-const dispatch = store.dispatch
+//设置用户信息action
+const setUserInfo = function (user) {
+  store.dispatch(SET_USER_INFO, user)
+}
 
 //使用自定义插件
 Vue.use(Plugins)
@@ -55,7 +59,7 @@ Vue.http.interceptors.push((request, next) => {
     let _code = response.body.code
     let _msg = response.body.msg
     if (_code === port_code.unlogin) {
-      dispatch('set_user_info', {
+      setUserInfo({
         user: null,
         is_login: false
       })
@@ -81,13 +85,17 @@ Vue.http.interceptors.push((request, next) => {
 
 Vue.http.options.emulateJSON = true
 
+//发布后是否显示提示
 Vue.config.productionTip = false
+
+//是否开启工具调试
+Vue.config.devtools = false
 
 //为避免登录延迟，先获取用户信息
 Vue.http.get(port_user.info)
-  .then(({data:{data, code, msg}}) => {
+  .then(({data: {data, code, msg}}) => {
     if (code === port_code.success) {
-      dispatch('set_user_info', {
+      setUserInfo({
         user: data,
         is_login: true
       })
@@ -100,9 +108,8 @@ Vue.http.get(port_user.info)
     }).$mount('mainbody')
   })
   .catch(({status, statusText}) => {
-    this.$message({
+    Vue.prototype.$message({
       message: '操作失败！错误原因 ' + statusText + ' 状态码 ' + status,
       type: 'error'
     })
   })
-

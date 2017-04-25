@@ -97,7 +97,7 @@
           params: {
             id: this.route_id
           }
-        }).then(({data:{data}}) => {
+        }).then(({data: {data}}) => {
           this.form = data
           this.load_data = false
         })
@@ -112,7 +112,7 @@
           if (!valid) return false
           this.on_submit_loading = true
           this.$http.post(port_table.save, this.form)
-            .then(({data:{msg}}) => {
+            .then(({data: {msg}}) => {
               this.$message({
                 message: msg,
                 type: 'success'

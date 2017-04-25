@@ -108,7 +108,7 @@
         //请求时的loading效果
         load_data: true,
         //批量选择数组
-        batch_select: new Array()
+        batch_select: []
       }
     },
     components: {
@@ -132,7 +132,7 @@
             length: this.length
           }
         })
-          .then(({data:{data, page, total}}) => {
+          .then(({data: {data, page, total}}) => {
             this.table_data = data
             this.currentPage = parseInt(page)
             this.total = parseInt(total)
@@ -153,7 +153,7 @@
           type: 'warning'
         }).then(() => {
           this.$http.post(port_table.del, {id: id})
-            .then(({data:{data, code, msg}}) => {
+            .then(({data: {data, code, msg}}) => {
               this.get_table_data()
               this.$message({
                 message: msg,
@@ -189,7 +189,7 @@
           this.$http.post(port_table.batch_del, {
             params: this.batch_select
           })
-            .then(({data:{msg}}) => {
+            .then(({data: {msg}}) => {
               this.get_table_data()
               this.$message({
                 message: msg,

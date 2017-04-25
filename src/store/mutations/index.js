@@ -8,14 +8,15 @@
  * @Copyright(©) 2017 by zzmhot.
  *
  */
+import * as type from 'store/mutations/type'
 
 export default {
   //设置用户信息
-  SET_USER_INFO(state, status){
+  [type.SET_USER_INFO](state, status){
     state.user_info = status
   },
   //设置用户是否登录
-  SET_USER_LOGIN(state, status){
+  [type.SET_USER_LOGIN](state, status){
     state.user_login = status
   }
 }

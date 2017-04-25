@@ -9,8 +9,11 @@
  *
  */
 
+import * as type from 'store/getters/type'
+
 export default {
-  get_user_info: state => {
+  //获取用户信息
+  [type.GET_USER_INFO]: state => {
     return {
       user: state.user_info,
       is_login: state.user_login

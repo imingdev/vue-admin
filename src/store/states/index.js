@@ -11,7 +11,7 @@
 
 export default {
   //用户信息
-  user_info: new Object(),
+  user_info: {},
   //用户是否登录
   user_login: false
 }

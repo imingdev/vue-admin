@@ -33,7 +33,9 @@
 </template>
 <script type="text/javascript">
   import {port_user} from 'common/port_uri'
-  import {mapGetters} from 'vuex'
+  import {mapGetters, mapActions} from 'vuex'
+  import {GET_USER_INFO} from 'store/getters/type'
+  import {SET_USER_INFO} from 'store/actions/type'
 
   const USER_OUT = 0
   const USER_INFO = 1
@@ -41,24 +43,29 @@
 
   export default{
     computed: {
-      ...mapGetters(['get_user_info'])
+      ...mapGetters({
+        get_user_info: GET_USER_INFO
+      })
     },
     methods: {
+      ...mapActions({
+        set_user_info: SET_USER_INFO
+      }),
+      //退出
       user_out(){
-        //退出
         this.$confirm('此操作将退出登录, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           this.$http.post(port_user.logout)
-            .then(({data:{msg}}) => {
+            .then(({data: {msg}}) => {
               this.isShow = false
               this.$message({
                 message: msg,
                 type: 'success'
               })
-              this.$store.dispatch('set_user_info', {
+              this.set_user_info({
                 user: null,
                 is_login: false
               })

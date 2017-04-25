@@ -12,16 +12,3 @@
     </el-row>
   </div>
 </template>
-<script type="text/javascript">
-  export default{
-    data(){
-      return {
-        msg: 'hello vue'
-      }
-    },
-    components: {}
-  }
-</script>
-<style lang="scss" type="text/css" rel="stylesheet/scss">
-
-</style>
