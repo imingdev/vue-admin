@@ -35,6 +35,7 @@ npm run dev
 ```
 npm run build
 ```
+***
 ### 目录结构
 <pre>
 ├── build                     // 项目的 Webpack 配置文件
@@ -65,8 +66,11 @@ npm run build
 ![image](https://raw.githubusercontent.com/zzmhot/vue-admin/images/images_2.jpg)
 <br />
 ![image](https://raw.githubusercontent.com/zzmhot/vue-admin/images/images_3.jpg)
-<br />
+***
+### 捐赠
 ![image](https://raw.githubusercontent.com/zzmhot/vue-admin/images/images_4.jpg)
+喜欢这个项目？捐助一杯咖啡支持下（￥28）
+***
 ### 结束
 
 有什么想交流的请联系我：[zzmhot@163.com](mailto:zzmhot@163.com)，QQ群：[307914534](https://jq.qq.com/?_wv=1027&k=46l9UkQ)
