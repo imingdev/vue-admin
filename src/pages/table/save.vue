@@ -94,7 +94,9 @@
       get_form_data(){
         this.load_data = true
         this.$http.get(port_table.get, {
-          id: this.route_id
+          params: {
+            id: this.route_id
+          }
         })
           .then(({data: {data}}) => {
             this.form = data

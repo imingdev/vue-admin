@@ -127,8 +127,10 @@
       get_table_data(){
         this.load_data = true
         this.$http.get(port_table.list, {
-          page: this.currentPage,
-          length: this.length
+          params: {
+            page: this.currentPage,
+            length: this.length
+          }
         })
           .then(({data: {data, page, total}}) => {
             this.table_data = data
