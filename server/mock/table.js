@@ -33,7 +33,7 @@ exports.list = Mock.mock({
 })
 
 exports.get = Mock.mock({
-  code: port_code.error,
+  code: port_code.success,
   msg: "获取成功",
   data: data_list[0]
 })
