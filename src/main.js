@@ -21,7 +21,7 @@ import Vue from 'vue'
 //导入组件
 import router from './router'
 import NProgress from 'vue-nprogress'
-import axios from './axios'
+import request from './request'
 //导入状态管理器
 import store from 'store'
 //导入自定义插件
@@ -35,8 +35,8 @@ Vue.use(ElementUI)
 //使用自定义插件
 Vue.use(Plugins)
 
-//使用axios
-Vue.use(axios)
+//使用request
+Vue.use(request)
 
 //使用vue-nprogress
 Vue.use(NProgress, {
