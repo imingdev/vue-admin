@@ -15,14 +15,14 @@ var uri = require('../../src/common/port_uri').port_table
 module.exports = function (apiRouter) {
   //获取数据列表
   apiRouter.get(uri.list, function (req, res) {
-    mock.list.page = req.query.page
+    mock.list.page = parseInt(req.query.page)
     setTimeout(function () {
       res.json(mock.list)
     }, 1000)
   })
   //根据id查询数据
   apiRouter.get(uri.get, function (req, res) {
-    mock.get.data.id = req.query.id
+    mock.get.data.id = parseInt(req.query.id)
     mock.list.page = req.query.page
     setTimeout(function () {
       res.json(mock.get)

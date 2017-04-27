@@ -9,14 +9,12 @@
  *
  */
 import * as type from 'store/mutations/type'
+import {sessionStorage} from 'common/storage'
 
 export default {
-  //设置用户信息
-  [type.SET_USER_INFO](state, status){
-    state.user_info = status
-  },
-  //设置用户是否登录
-  [type.SET_USER_LOGIN](state, status){
-    state.user_login = status
+  //设置用户信息和是否登录
+  [type.SET_USER_INFO](state, userinfo){
+    state.user_info = userinfo || {}
+    sessionStorage.set('userinfo', userinfo)
   }
 }

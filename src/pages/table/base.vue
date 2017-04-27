@@ -127,22 +127,17 @@
       get_table_data(){
         this.load_data = true
         this.$http.get(port_table.list, {
-          params: {
-            page: this.currentPage,
-            length: this.length
-          }
+          page: this.currentPage,
+          length: this.length
         })
           .then(({data: {data, page, total}}) => {
             this.table_data = data
-            this.currentPage = parseInt(page)
-            this.total = parseInt(total)
+            this.currentPage = page
+            this.total = total
             this.load_data = false
           })
-          .catch(({status, statusText}) => {
-            this.$message({
-              message: '操作失败！错误原因 ' + statusText + ' 状态码 ' + status,
-              type: 'error'
-            })
+          .catch(() => {
+            this.load_data = false
           })
       },
       //根据id删除数据
@@ -152,18 +147,13 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
+          this.load_data = true
           this.$http.post(port_table.del, {id: id})
-            .then(({data: {data, code, msg}}) => {
+            .then(({data: {msg}}) => {
               this.get_table_data()
               this.$message({
                 message: msg,
                 type: 'success'
-              })
-            })
-            .catch(({status, statusText}) => {
-              this.$message({
-                message: '操作失败！错误原因 ' + statusText + ' 状态码 ' + status,
-                type: 'error'
               })
             })
         }).catch(() => {
@@ -186,20 +176,13 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$http.post(port_table.batch_del, {
-            params: this.batch_select
-          })
+          this.load_data = true
+          this.$http.post(port_table.batch_del, this.batch_select)
             .then(({data: {msg}}) => {
               this.get_table_data()
               this.$message({
                 message: msg,
                 type: 'success'
-              })
-            })
-            .catch(({status, statusText}) => {
-              this.$message({
-                message: '操作失败！错误原因 ' + statusText + ' 状态码 ' + status,
-                type: 'error'
               })
             })
         }).catch(() => {

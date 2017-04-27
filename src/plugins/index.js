@@ -11,10 +11,12 @@
  *
  */
 import DateFormat from 'plugins/date'
+import http from 'common/http'
 
 const install = function (Vue) {
   if (install.installed) return
   Date.prototype.$DateFormat = DateFormat
+  Vue.prototype.$http = Vue.$http = http
 }
 
 export default {

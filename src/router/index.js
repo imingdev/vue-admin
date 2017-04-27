@@ -27,7 +27,7 @@ const routes = [{
     menuView: require('components/leftSlide')
   },
   meta: {
-    title:"主页",
+    title: "主页",
     auth: true
   }
 }, {
@@ -38,7 +38,7 @@ const routes = [{
     menuView: require('components/leftSlide')
   },
   meta: {
-    title:"基本表格",
+    title: "基本表格",
     auth: true
   }
 }, {
@@ -49,7 +49,7 @@ const routes = [{
     menuView: require('components/leftSlide')
   },
   meta: {
-    title:"排序表格",
+    title: "排序表格",
     auth: true
   }
 }, {
@@ -60,7 +60,7 @@ const routes = [{
     menuView: require('components/leftSlide')
   },
   meta: {
-    title:"数据修改",
+    title: "数据修改",
     auth: true
   }
 }, {
@@ -71,7 +71,7 @@ const routes = [{
     menuView: require('components/leftSlide')
   },
   meta: {
-    title:"添加数据",
+    title: "添加数据",
     auth: true
   }
 }, {
@@ -82,7 +82,7 @@ const routes = [{
     menuView: require('components/leftSlide')
   },
   meta: {
-    title:"柱状图表",
+    title: "柱状图表",
     auth: true
   }
 }, {
@@ -119,19 +119,22 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   let toName = to.name
   // let fromName = from.name
-  let is_login = store.state.user_login
-  if (is_login && toName === "login") {
-    router.replace({path: "/"})
-  }
-  if (to.matched.some(record => record.meta.auth)) {
-    if (!is_login) {
-      router.replace({name: "login"})
-    } else {
-      next()
-    }
+  let is_login = store.state.user_info.login
+
+  if (!is_login && toName !== 'login') {
+    next({
+      name: 'login'
+    });
   } else {
-    next()
+    if (is_login && toName === 'login') {
+      next({
+        path: '/'
+      });
+    } else {
+      next();
+    }
   }
+
 })
 
 //路由完成之后的操作

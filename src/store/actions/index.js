@@ -14,9 +14,7 @@ import * as mutations from 'store/mutations/type'
 
 export default {
   //设置用户信息和登录
-  [actions.SET_USER_INFO]({commit}, {user, is_login}){
-    let _user = user === null ? {} : user
-    commit(mutations.SET_USER_INFO, _user)
-    commit(mutations.SET_USER_LOGIN, is_login)
+  [actions.SET_USER_INFO]({commit}, userinfo){
+    commit(mutations.SET_USER_INFO, userinfo)
   }
 }

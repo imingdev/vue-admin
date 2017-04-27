@@ -49,26 +49,27 @@
       }),
       //提交
       submit_form() {
-        let self = this
-        self.$refs.form.validate((valid) => {
+        this.$refs.form.validate((valid) => {
           if (valid) {
             this.load_data = true
             //登录提交
-            self.$http.post(port_user.login, this.form)
+            this.$http.post(port_user.login, this.form)
               .then(({data: {data, msg}}) => {
                 let isNull = data !== null
-                self.set_user_info({
+                this.set_user_info({
                   user: data,
-                  is_login: true
+                  login: true
                 })
-                self.$message({
+                this.$message({
                   message: msg,
                   type: 'success'
                 })
                 setTimeout(() => {
-                  self.$router.replace({path: '/'})
-                  self.load_data = false
+                  this.$router.push({path: '/'})
                 }, 500)
+              })
+              .catch(() => {
+                this.load_data = false
               })
           } else {
             return false

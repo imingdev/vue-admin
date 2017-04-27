@@ -94,13 +94,15 @@
       get_form_data(){
         this.load_data = true
         this.$http.get(port_table.get, {
-          params: {
-            id: this.route_id
-          }
-        }).then(({data: {data}}) => {
-          this.form = data
-          this.load_data = false
+          id: this.route_id
         })
+          .then(({data: {data}}) => {
+            this.form = data
+            this.load_data = false
+          })
+          .catch(() => {
+            this.load_data = false
+          })
       },
       //时间选择改变时
       on_change_birthday(val){
@@ -120,13 +122,10 @@
               setTimeout(() => {
                 this.$router.back()
               }, 500)
-            }).catch(({status, statusText}) => {
-            this.$message({
-              message: '操作失败！错误原因 ' + statusText + ' 状态码 ' + status,
-              type: 'error'
             })
-            this.on_submit_loading = false
-          })
+            .catch(() => {
+              this.on_submit_loading = false
+            })
         })
       }
     },

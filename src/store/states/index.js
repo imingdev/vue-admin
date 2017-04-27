@@ -9,9 +9,9 @@
  *
  */
 
+import {sessionStorage} from 'common/storage'
+
 export default {
-  //用户信息
-  user_info: {},
-  //用户是否登录
-  user_login: false
+  //用户信息和是否登录
+  user_info: sessionStorage.get('userinfo') || {}
 }

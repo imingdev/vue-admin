@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-right" v-if="get_user_info.is_login">
+  <div class="menu-right" v-if="get_user_info.login">
     <div class="notification-menu">
       <el-dropdown trigger="click" class="notification-list">
         <div class="notification-btn">
@@ -60,24 +60,14 @@
         }).then(() => {
           this.$http.post(port_user.logout)
             .then(({data: {msg}}) => {
-              this.isShow = false
               this.$message({
                 message: msg,
                 type: 'success'
               })
-              this.set_user_info({
-                user: null,
-                is_login: false
-              })
+              this.set_user_info(null)
               setTimeout(() => {
                 this.$router.replace({name: "login"})
               }, 500)
-            })
-            .catch(({status, statusText}) => {
-              this.$message({
-                message: '提交失败！错误原因 ' + statusText + ' 状态码 ' + status,
-                type: 'error'
-              })
             })
         }).catch(() => {
 
