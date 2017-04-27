@@ -14,6 +14,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from 'store'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 Vue.use(VueRouter)
 
@@ -117,6 +119,7 @@ const router = new VueRouter({
 //全局路由配置
 //路由开始之前的操作
 router.beforeEach((to, from, next) => {
+  NProgress.start()
   let toName = to.name
   // let fromName = from.name
   let is_login = store.state.user_info.login
@@ -139,7 +142,7 @@ router.beforeEach((to, from, next) => {
 
 //路由完成之后的操作
 router.afterEach(route => {
-
+  NProgress.done()
 })
 
 export default router

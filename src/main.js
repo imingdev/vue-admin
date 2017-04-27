@@ -20,7 +20,6 @@ import 'font-awesome/scss/font-awesome.scss'
 import Vue from 'vue'
 //导入组件
 import router from './router'
-import NProgress from 'vue-nprogress'
 import request from './request'
 //导入状态管理器
 import store from 'store'
@@ -38,13 +37,6 @@ Vue.use(Plugins)
 //使用request
 Vue.use(request)
 
-//使用vue-nprogress
-Vue.use(NProgress, {
-  latencyThreshold: 100, // Number of ms before progressbar starts showing, default: 100,
-  router: true, // Show progressbar when navigating routes, default: true
-  http: false // Show progressbar when doing Vue.http, default: true
-})
-
 //发布后是否显示提示
 Vue.config.productionTip = false
 
@@ -54,6 +46,5 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  nprogress: new NProgress({parent: '.nprogress-container'}),
   ...App
 }).$mount('mainbody')
