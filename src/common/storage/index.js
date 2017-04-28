@@ -1,62 +1,22 @@
 /**
  * @file: index.
- * @intro: Storage工具类.
+ * @intro: storage存储.
  * @author: zzmhot.
  * @email: zzmhot@163.com.
- * @Date: 2017/4/27 15:28.
- * @Copyright(©) 2017 by thinkive.
+ * @Date: 2017/4/28 10:42.
+ * @Copyright(©) 2017 by zzmhot.
  *
  */
 
-//本地存储的前缀
-const storagePrefix = 'zzm_admin_'
+//存储前缀
+import {storagePrefix} from './setting'
 
-class Storage {
+import {localStorage, sessionStorage} from './storage'
+import cookieStorage from './cookie'
 
-  constructor(type) {
-    if (type === 'local') {
-      this.store = window.localStorage
-    } else if (type === 'session') {
-      this.store = window.sessionStorage
-    }
-  }
-
-  set(key, value, fn) {
-    try {
-      value = JSON.stringify(value)
-    } catch (e) {
-      value = value
-    }
-
-    this.store.setItem(storagePrefix + key, value)
-
-    fn && fn()
-  }
-
-  get(key, fn) {
-    if (!key) {
-      throw new Error('没有找到key。')
-      return
-    }
-    if (typeof key === 'object') {
-      throw new Error('key不能是一个对象。')
-      return
-    }
-    let value = this.store.getItem(storagePrefix + key)
-    if (value !== null) {
-      try {
-        value = JSON.parse(value)
-      } catch (e) {
-        value = value
-      }
-    }
-    return value
-  }
-
-  remove(key) {
-    this.store.removeItem(storagePrefix + key)
-  }
+export {
+  localStorage,
+  sessionStorage,
+  cookieStorage,
+  storagePrefix
 }
-
-export const localStorage = new Storage('local')
-export const sessionStorage = new Storage('session')

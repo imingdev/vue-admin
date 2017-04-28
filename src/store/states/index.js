@@ -9,9 +9,9 @@
  *
  */
 
-import {sessionStorage} from 'common/storage'
+import {cookieStorage, storagePrefix} from 'common/storage'
 
 export default {
   //用户信息和是否登录
-  user_info: sessionStorage.get('userinfo') || {}
+  user_info: cookieStorage.get(storagePrefix + 'userinfo')
 }

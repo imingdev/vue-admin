@@ -10,12 +10,18 @@
  * @Copyright(©) 2017 by zzmhot.
  *
  */
-import DateFormat from 'plugins/date'
+import dateFormat from 'plugins/date'
 
 const install = function (Vue) {
   if (install.installed) return
   install.installed = true
-  Date.prototype.$DateFormat = DateFormat
+
+  //定义属性到Vue原型中
+  Object.defineProperties(Vue.prototype, {
+    $dateFormat: {
+      value: dateFormat
+    }
+  })
 }
 
 export default {

@@ -24,6 +24,8 @@ const install = function (Vue) {
   if (install.installed) return
   install.installed = true
 
+  let $vue = Vue.prototype || Vue
+
   //设置默认根地址
   axios.defaults.baseURL = '/'
   //设置请求超时设置
@@ -43,7 +45,7 @@ const install = function (Vue) {
       setUserInfo(null)
       router.replace({name: "login"})
     }
-    Vue.prototype.$message({
+    $vue.$message({
       message: datamsg,
       type: 'warning'
     })
@@ -54,7 +56,7 @@ const install = function (Vue) {
       let resError = error.response
       let resCode = resError.status
       let resMsg = error.message
-      Vue.prototype.$message({
+      $vue.$message({
         message: '操作失败！错误原因 ' + resMsg,
         type: 'error'
       })
@@ -62,9 +64,9 @@ const install = function (Vue) {
     }
   });
 
-  //设置到axios到Vue上
+  //设置axios到Vue上
   Vue.axios = axios
-  Object.defineProperties(Vue.prototype, {
+  Object.defineProperties($vue, {
     axios: {
       get() {
         return axios

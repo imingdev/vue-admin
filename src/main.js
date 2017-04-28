@@ -20,9 +20,10 @@ import 'font-awesome/scss/font-awesome.scss'
 import Vue from 'vue'
 //导入组件
 import router from './router'
-import request from './request'
 //导入状态管理器
 import store from 'store'
+//导入请求框架
+import request from './request'
 //导入自定义插件
 import Plugins from 'plugins'
 //导入主视图文件

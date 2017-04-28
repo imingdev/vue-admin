@@ -72,7 +72,7 @@
           name: null,
           sex: 1,
           age: 20,
-          birthday: (new Date()).$DateFormat("yyyy-MM-dd"),
+          birthday: this.$dateFormat(new Date, "yyyy-MM-dd"),
           address: null,
           zip: 412300
         },
@@ -85,9 +85,7 @@
       }
     },
     created(){
-      if (this.route_id) {
-        this.get_form_data()
-      }
+      this.route_id && this.get_form_data()
     },
     methods: {
       //获取数据
