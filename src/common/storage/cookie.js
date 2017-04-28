@@ -24,10 +24,6 @@ function isObject(value) {
 function isArray(value) {
   return Object.prototype.toString.call(value) === '[object Array]';
 }
-function toArray(value) {
-  return Array.prototype.slice.call(value);
-}
-
 
 /**
  * cookies操作类
@@ -95,6 +91,11 @@ export default new class Cookie {
     return this
   }
 
+  /**
+   * 删除cookie
+   * @param {string||array} keys 删除cookie的key
+   * @returns {Cookie}
+   */
   remove(keys) {
     keys = isArray(keys) ? keys : [keys]
     for (let i = 0, l = keys.length; i < l; i++) {
@@ -103,6 +104,10 @@ export default new class Cookie {
     return this
   }
 
+  /**
+   * 获取所有的cookie
+   * @returns {object} cookie对象
+   */
   all() {
     let dCookie = document.cookie
     if (dCookie === '') return {}
