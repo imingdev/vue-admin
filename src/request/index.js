@@ -66,7 +66,7 @@ const install = function (Vue) {
 
   //设置axios到Vue上
   Vue.axios = axios
-  Object.defineProperties($vue, {
+  Object.defineProperties(Vue.prototype, {
     axios: {
       get() {
         return axios

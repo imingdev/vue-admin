@@ -13,11 +13,12 @@
 
 //导入样式
 import 'normalize.css'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
 import 'font-awesome/scss/font-awesome.scss'
+import 'element-ui/lib/theme-default/index.css'
 //导入Vue框架
 import Vue from 'vue'
+//导入element组件
+import ElementUI from 'element-ui'
 //导入组件
 import router from './router'
 //导入状态管理器

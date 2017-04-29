@@ -71,7 +71,7 @@
             <router-link :to="{name: 'tableUpdate', params: {id: props.row.id}}" tag="span">
               <el-button type="info" size="small" icon="edit">修改</el-button>
             </router-link>
-            <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row.id)">删除</el-button>
+            <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -149,15 +149,15 @@
             this.load_data = false
           })
       },
-      //根据id删除数据
-      delete_data(id){
+      //单个删除
+      delete_data(item){
         this.$confirm('此操作将删除该数据, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           this.load_data = true
-          this.$http.post(port_table.del, {id: id})
+          this.$http.post(port_table.del, item)
             .then(({data: {msg}}) => {
               this.get_table_data()
               this.$message({
