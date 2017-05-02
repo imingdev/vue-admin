@@ -9,11 +9,11 @@
       </div>
       <div class="login-form">
         <el-form ref="form" :model="form" :rules="rules" label-width="0">
-          <el-form-item prop="user_name" class="login-item">
-            <el-input v-model="form.user_name" placeholder="请输入账户名：" class="form-input" :autofocus="true"></el-input>
+          <el-form-item prop="username" class="login-item">
+            <el-input v-model="form.username" placeholder="请输入账户名：" class="form-input" :autofocus="true"></el-input>
           </el-form-item>
-          <el-form-item prop="user_password" class="login-item">
-            <el-input type="password" v-model="form.user_password" placeholder="请输入账户密码：" class="form-input"></el-input>
+          <el-form-item prop="password" class="login-item">
+            <el-input type="password" v-model="form.password" placeholder="请输入账户密码：" class="form-input"></el-input>
           </el-form-item>
           <el-form-item class="login-item">
             <el-button size="large" icon="check" class="form-submit" @click="submit_form"></el-button>
@@ -24,7 +24,7 @@
   </div>
 </template>
 <script type="text/javascript">
-  import {port_user} from 'common/port_uri'
+  import {port_user, port_code} from 'common/port_uri'
   import {mapActions} from 'vuex'
   import {SET_USER_INFO} from 'store/actions/type'
 
@@ -32,12 +32,12 @@
     data(){
       return {
         form: {
-          user_name: '',
-          user_password: ''
+          username: null,
+          password: null
         },
         rules: {
-          user_name: [{required: true, message: '请输入账户名！', trigger: 'blur'}],
-          user_password: [{required: true, message: '请输入账户密码！', trigger: 'blur'}]
+          username: [{required: true, message: '请输入账户名！', trigger: 'blur'}],
+          password: [{required: true, message: '请输入账户密码！', trigger: 'blur'}]
         },
         //请求时的loading效果
         load_data: false
@@ -55,7 +55,6 @@
             //登录提交
             this.$http.post(port_user.login, this.form)
               .then(({data: {data, msg}}) => {
-                let isNull = data !== null
                 this.set_user_info({
                   user: data,
                   login: true
@@ -68,8 +67,14 @@
                   this.$router.push({path: '/'})
                 }, 500)
               })
-              .catch(() => {
+              .catch(({code}) => {
                 this.load_data = false
+                if (code === port_code.error) {
+                  this.$notify.info({
+                    title: '温馨提示',
+                    message: '账号和密码都为：admin'
+                  })
+                }
               })
           } else {
             return false

@@ -155,19 +155,23 @@
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(() => {
-          this.load_data = true
-          this.$http.post(port_table.del, item)
-            .then(({data: {msg}}) => {
-              this.get_table_data()
-              this.$message({
-                message: msg,
-                type: 'success'
-              })
-            })
-        }).catch(() => {
-
         })
+          .then(() => {
+            this.load_data = true
+            this.$http.post(port_table.del, item)
+              .then(({data: {msg}}) => {
+                this.get_table_data()
+                this.$message({
+                  message: msg,
+                  type: 'success'
+                })
+              })
+              .catch(() => {
+              })
+          })
+          .catch(() => {
+
+          })
       },
       //页码选择
       handleCurrentChange(val) {
@@ -184,18 +188,22 @@
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(() => {
-          this.load_data = true
-          this.$http.post(port_table.batch_del, this.batch_select)
-            .then(({data: {msg}}) => {
-              this.get_table_data()
-              this.$message({
-                message: msg,
-                type: 'success'
-              })
-            })
-        }).catch(() => {
         })
+          .then(() => {
+            this.load_data = true
+            this.$http.post(port_table.batch_del, this.batch_select)
+              .then(({data: {msg}}) => {
+                this.get_table_data()
+                this.$message({
+                  message: msg,
+                  type: 'success'
+                })
+              })
+              .catch(() => {
+              })
+          })
+          .catch(() => {
+          })
       }
     }
   }

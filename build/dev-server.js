@@ -11,6 +11,8 @@ var express = require('express')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
+var request = require('request')
+var bodyParser = require('body-parser')
 var apiRouter = require('../server/controller')
 
 // default port where dev server listens for incoming traffic
@@ -22,7 +24,18 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
+
+//获取post的参数，放在router之前,request.body.xxxx
+app.use(bodyParser.json())
+
 app.use(apiRouter)
+
+// //通过代理的方式与后端通信，解决了数据请求跨域的问题
+// app.use('/', function (req, res) {
+//   var url = 'https://www.baidu.com/' + req.url;
+//   req.pipe(request(url)).pipe(res);
+// });
+
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
