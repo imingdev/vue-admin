@@ -20,6 +20,3 @@
     }
   }
 </script>
-<style lang="scss" type="text/css" rel="stylesheet/scss">
-
-</style>

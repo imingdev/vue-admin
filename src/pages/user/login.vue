@@ -54,15 +54,12 @@
             this.load_data = true
             //登录提交
             this.$http.post(port_user.login, this.form)
-              .then(({data: {data, msg}}) => {
+              .then(({data, msg}) => {
                 this.set_user_info({
                   user: data,
                   login: true
                 })
-                this.$message({
-                  message: msg,
-                  type: 'success'
-                })
+                this.$message.success(msg)
                 setTimeout(() => {
                   this.$router.push({path: '/'})
                 }, 500)
@@ -84,7 +81,7 @@
     }
   }
 </script>
-<style lang="scss" type="text/css" rel="stylesheet/scss">
+<style lang="scss" type="text/scss" rel="stylesheet/scss">
   .login-body {
     position: absolute;
     left: 0;
@@ -95,55 +92,42 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-
-  .loginWarp {
-    width: 300px;
-    padding: 25px 15px;
-    margin: 100px auto;
-    background-color: #fff;
-    border-radius: 5px;
-
-  .login-title {
-    margin-bottom: 25px;
-    text-align: center;
-  }
-
-  .login-item {
-
-  .el-input__inner {
-    margin: 0 !important;
-  }
-
-  }
-  .form-input {
-
-  input {
-    margin-bottom: 15px;
-    font-size: 12px;
-    height: 40px;
-    border: 1px solid #eaeaec;
-    background: #eaeaec;
-    border-radius: 5px;
-    color: #555;
-  }
-
-  }
-  .form-submit {
-    width: 100%;
-    color: #fff;
-    border-color: #6bc5a4;
-    background: #6bc5a4;
-
-  &
-  :active,
-
-  &
-  :hover {
-    border-color: #6bc5a4;
-    background: #6bc5a4;
-  }
-
-  }
-  }
+    .loginWarp {
+      width: 300px;
+      padding: 25px 15px;
+      margin: 100px auto;
+      background-color: #fff;
+      border-radius: 5px;
+      .login-title {
+        margin-bottom: 25px;
+        text-align: center;
+      }
+      .login-item {
+        .el-input__inner {
+          margin: 0 !important;
+        }
+      }
+      .form-input {
+        input {
+          margin-bottom: 15px;
+          font-size: 12px;
+          height: 40px;
+          border: 1px solid #eaeaec;
+          background: #eaeaec;
+          border-radius: 5px;
+          color: #555;
+        }
+      }
+      .form-submit {
+        width: 100%;
+        color: #fff;
+        border-color: #6bc5a4;
+        background: #6bc5a4;
+        &:active, &:hover {
+          border-color: #6bc5a4;
+          background: #6bc5a4;
+        }
+      }
+    }
   }
 </style>

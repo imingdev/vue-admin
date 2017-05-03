@@ -59,15 +59,10 @@
           type: 'warning'
         }).then(() => {
           this.$http.post(port_user.logout)
-            .then(({data: {msg}}) => {
-              this.$message({
-                message: msg,
-                type: 'success'
-              })
+            .then(({msg}) => {
+              this.$message.success(msg)
               this.set_user_info(null)
-              setTimeout(() => {
-                this.$router.replace({name: "login"})
-              }, 500)
+              setTimeout(this.$router.replace({name: "login"}), 500)
             })
         }).catch(() => {
 

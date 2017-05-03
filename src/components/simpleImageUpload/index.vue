@@ -75,7 +75,7 @@
     }
   }
 </script>
-<style lang="scss" type="text/css" rel="stylesheet/scss">
+<style lang="scss" type="text/scss" rel="stylesheet/scss">
   .image-uploader-warp {
     background-color: #fff;
     border: 1px dashed #d9d9d9;

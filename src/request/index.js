@@ -38,28 +38,23 @@ const install = function (Vue) {
     //成功时
     let resData = response.data
     let dataCode = resData.code
-    let datamsg = resData.msg
+    let dataMsg = resData.msg
+    let dataResult = resData.data
     if (dataCode === port_code.success) {
-      return Promise.resolve(response)
+      return Promise.resolve(resData)
     } else if (dataCode === port_code.unlogin) {
       setUserInfo(null)
       router.replace({name: "login"})
     }
-    $vue.$message({
-      message: datamsg,
-      type: 'warning'
-    })
-    return Promise.reject({code: dataCode, msg: datamsg})
+    $vue.$message.warning(dataMsg)
+    return Promise.reject(resData)
   }, error => {
     //错误时
     if (error.response) {
       let resError = error.response
       let resCode = resError.status
       let resMsg = error.message
-      $vue.$message({
-        message: '操作失败！错误原因 ' + resMsg,
-        type: 'error'
-      })
+      $vue.$message.error('操作失败！错误原因 ' + resMsg)
       return Promise.reject({code: resCode, msg: resMsg})
     }
   });

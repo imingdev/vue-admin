@@ -25,7 +25,7 @@
   }
 </script>
 
-<style lang="scss" type="text/css" rel="stylesheet/scss">
+<style lang="scss" type="text/scss" rel="stylesheet/scss">
   @import '~assets/scss/main';
 
   .fade-enter-active,

@@ -132,7 +132,7 @@
             length: this.length
           }
         })
-          .then(({data: {data, page, total}}) => {
+          .then(({data, page, total}) => {
             this.table_data = data
             this.currentPage = page
             this.total = total
@@ -152,12 +152,9 @@
           .then(() => {
             this.load_data = true
             this.$http.post(port_table.del, item)
-              .then(({data: {msg}}) => {
+              .then(({msg}) => {
                 this.get_table_data()
-                this.$message({
-                  message: msg,
-                  type: 'success'
-                })
+                this.$message.success(msg)
               })
               .catch(() => {
               })
@@ -184,12 +181,9 @@
           .then(() => {
             this.load_data = true
             this.$http.post(port_table.batch_del, this.batch_select)
-              .then(({data: {msg}}) => {
+              .then(({msg}) => {
                 this.get_table_data()
-                this.$message({
-                  message: msg,
-                  type: 'success'
-                })
+                this.$message.success(msg)
               })
               .catch(() => {
               })

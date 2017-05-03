@@ -17,10 +17,7 @@
     },
     methods: {
       submit_search(value) {
-        this.$message({
-          message: value,
-          type: 'success'
-        })
+        this.$message.success(value)
       }
     }
   }

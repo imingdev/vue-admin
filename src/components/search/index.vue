@@ -26,9 +26,7 @@
     },
     methods: {
       submit_form() {
-        if (!this.valueIsNull) {
-          this.$emit('search', this.formValue)
-        }
+        !this.valueIsNull && this.$emit('search', this.formValue)
         return false
       }
     }

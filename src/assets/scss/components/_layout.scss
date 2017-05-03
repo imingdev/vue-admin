@@ -44,7 +44,7 @@
   .header-section {
     position: fixed;
     top: 0;
-    left: 220px;
+    left: inherit;
     width: 100%;
     height: 50px;
     background-color: #fff;
@@ -59,7 +59,6 @@
     }
     .menu-right {
       position: relative;
-      float: right;
       margin-right: 235px;
       text-align: right;
       font-size: 0;
@@ -136,7 +135,7 @@
       padding: 15px;
       overflow: hidden;
       font-weight: normal;
-      .bottom-toolbar{
+      .bottom-toolbar {
         margin-top: 15px;
         padding: 15px 0;
       }

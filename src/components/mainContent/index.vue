@@ -20,6 +20,7 @@
 <script type="text/javascript">
   import hSection from './headerSection'
   import vFooter from './footer'
+
   export default{
     name: 'content',
     components: {

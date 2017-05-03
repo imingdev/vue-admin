@@ -10,7 +10,7 @@
     </div>
   </div>
 </template>
-<style lang="scss" type="text/css" rel="stylesheet/scss">
+<style lang="scss" type="text/scss" rel="stylesheet/scss">
   .error-page {
     position: absolute;
     left: 0;
