@@ -17,9 +17,16 @@ import {tools_verify} from 'common/tools'
  * cookies操作类
  */
 export default new class Cookie {
-  defaults = {};
 
-  expiresMultiplier = 60 * 60 * 24
+  /**
+   * 构造函数
+   */
+  constructor() {
+    this.defaults = {}
+    this.expiresMultiplier = 60 * 60 * 24
+    this.prefix = storagePrefix
+  }
+
 
   /**
    * 根据key获取cookie的值
@@ -36,7 +43,7 @@ export default new class Cookie {
       return
     }
     let cookies = this.all()
-    let value = cookies[storagePrefix + key]
+    let value = cookies[this.prefix + key]
     try {
       value = JSON.parse(value)
     } catch (e) {
@@ -75,7 +82,7 @@ export default new class Cookie {
     let secure = options.secure || this.defaults.secure ? ';secure' : ''
     if (options.secure === false) secure = ''
     //设置cookie
-    document.cookie = tools_verify.encode(storagePrefix + key) + '=' + tools_verify.encode(JSON.stringify(value)) + expires + path + domain + secure
+    document.cookie = tools_verify.encode(this.prefix + key) + '=' + tools_verify.encode(JSON.stringify(value)) + expires + path + domain + secure
     return this
   }
 
@@ -97,9 +104,9 @@ export default new class Cookie {
    * @returns {object} cookie对象
    */
   all() {
-    let dCookie = document.cookie
-    if (dCookie === '') return {}
-    let cookieArr = dCookie.split('; '),
+    let cookie = document.cookie
+    if (cookie === '') return {}
+    let cookieArr = cookie.split('; '),
       result = {}
     for (let i = 0, l = cookieArr.length; i < l; i++) {
       let item = cookieArr[i].split('=');

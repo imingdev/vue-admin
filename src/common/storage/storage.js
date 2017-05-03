@@ -21,6 +21,7 @@ class Storage {
     } else if (type === 'session') {
       this.store = window.sessionStorage
     }
+    this.prefix = storagePrefix
   }
 
   set(key, value) {
@@ -30,7 +31,7 @@ class Storage {
       value = value
     }
 
-    this.store.setItem(tools_verify.encode(storagePrefix + key), tools_verify.encode(value))
+    this.store.setItem(tools_verify.encode(this.prefix + key), tools_verify.encode(value))
 
     return this
   }
@@ -44,7 +45,7 @@ class Storage {
       throw new Error('key不能是一个对象。')
       return
     }
-    let value = this.store.getItem(tools_verify.encode(storagePrefix + key))
+    let value = this.store.getItem(tools_verify.encode(this.prefix + key))
 
     if (value === null) {
       return {}
@@ -59,7 +60,7 @@ class Storage {
   }
 
   remove(key) {
-    this.store.removeItem(tools_verify.encode(storagePrefix + key))
+    this.store.removeItem(tools_verify.encode(this.prefix + key))
     return this
   }
 }
