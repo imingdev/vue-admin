@@ -30,6 +30,11 @@ const install = function (Vue) {
   axios.defaults.baseURL = '/'
   //设置请求超时设置
   axios.defaults.timeout = 2000
+  //设置请求时的header
+  axios.defaults.headers = {
+    'Github-url': 'https://github.com/zzmhot/vue-admin',
+    'X-Powered-By': 'zzmhot'
+  }
 
   /**
    * 添加响应拦截器

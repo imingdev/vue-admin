@@ -8,6 +8,11 @@
  *
  */
 
+//存储前缀
+import {storagePrefix} from './setting'
+
+import {tools_verify} from 'common/tools'
+
 class Storage {
 
   constructor(type) {
@@ -18,19 +23,19 @@ class Storage {
     }
   }
 
-  set(key, value, fn) {
+  set(key, value) {
     try {
       value = JSON.stringify(value)
     } catch (e) {
       value = value
     }
 
-    this.store.setItem(key, value)
+    this.store.setItem(tools_verify.encode(storagePrefix + key), tools_verify.encode(value))
 
-    fn && fn()
+    return this
   }
 
-  get(key, fn) {
+  get(key) {
     if (!key) {
       throw new Error('没有找到key。')
       return
@@ -39,20 +44,23 @@ class Storage {
       throw new Error('key不能是一个对象。')
       return
     }
-    let value = this.store.getItem(key)
-    if (value !== null) {
-      try {
-        value = JSON.parse(value)
-      } catch (e) {
-        value = value
-      }
+    let value = this.store.getItem(tools_verify.encode(storagePrefix + key))
+
+    if (value === null) {
+      return {}
     }
-    fn && fn()
+
+    try {
+      value = JSON.parse(tools_verify.decode(value))
+    } catch (e) {
+      value = {}
+    }
     return value
   }
 
   remove(key) {
-    this.store.removeItem(key)
+    this.store.removeItem(tools_verify.encode(storagePrefix + key))
+    return this
   }
 }
 

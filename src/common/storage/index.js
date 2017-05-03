@@ -8,15 +8,11 @@
  *
  */
 
-//存储前缀
-import {storagePrefix} from './setting'
-
 import {localStorage, sessionStorage} from './storage'
 import cookieStorage from './cookie'
 
 export {
   localStorage,
   sessionStorage,
-  cookieStorage,
-  storagePrefix
+  cookieStorage
 }

@@ -8,22 +8,10 @@
  *
  */
 
-//URI 解码
-function decode(value) {
-  return decodeURIComponent(value);
-}
-//URI 编码
-function encode(value) {
-  return encodeURIComponent(value)
-}
-//判断是否是object对象
-function isObject(value) {
-  return !!value && Object.prototype.toString.call(value) === '[object Object]';
-}
-//判断是否是数组
-function isArray(value) {
-  return Object.prototype.toString.call(value) === '[object Array]';
-}
+//存储前缀
+import {storagePrefix} from './setting'
+
+import {tools_verify} from 'common/tools'
 
 /**
  * cookies操作类
@@ -48,7 +36,7 @@ export default new class Cookie {
       return
     }
     let cookies = this.all()
-    let value = cookies[key]
+    let value = cookies[storagePrefix + key]
     try {
       value = JSON.parse(value)
     } catch (e) {
@@ -65,7 +53,7 @@ export default new class Cookie {
    * @returns {Cookie}
    */
   set(key, value, options) {
-    options = isObject(options) ? options : {expires: options}
+    options = tools_verify.isObject(options) ? options : {expires: options}
     // 如果expires为空的话那么就设置为session.
     let expires = options.expires !== undefined ? options.expires : (this.defaults.expires || ''),
       expiresType = typeof(expires)
@@ -87,7 +75,7 @@ export default new class Cookie {
     let secure = options.secure || this.defaults.secure ? ';secure' : ''
     if (options.secure === false) secure = ''
     //设置cookie
-    document.cookie = encode(key) + '=' + encode(JSON.stringify(value)) + expires + path + domain + secure
+    document.cookie = tools_verify.encode(storagePrefix + key) + '=' + tools_verify.encode(JSON.stringify(value)) + expires + path + domain + secure
     return this
   }
 
@@ -97,7 +85,7 @@ export default new class Cookie {
    * @returns {Cookie}
    */
   remove(keys) {
-    keys = isArray(keys) ? keys : [keys]
+    keys = tools_verify.isArray(keys) ? keys : [keys]
     for (let i = 0, l = keys.length; i < l; i++) {
       this.set(keys[i], '', -1);
     }
@@ -116,8 +104,8 @@ export default new class Cookie {
     for (let i = 0, l = cookieArr.length; i < l; i++) {
       let item = cookieArr[i].split('=');
       //arr.shift()把第一个数组删除并得到删除的值
-      let key = decode(item.shift())
-      let value = decode(item.join(''))
+      let key = tools_verify.decode(item.shift())
+      let value = tools_verify.decode(item.join(''))
       result[key] = value
     }
     return result
