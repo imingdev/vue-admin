@@ -43,7 +43,7 @@ Vue.use(request)
 Vue.config.productionTip = false
 
 //是否开启工具调试
-// Vue.config.devtools = false
+Vue.config.devtools = process.env.NODE_ENV === 'development'
 
 new Vue({
   router,

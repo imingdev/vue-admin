@@ -2,14 +2,27 @@
   <div class="error-page">
     <div class="errorWarp">
       <div class="image">
-        <img src="./images/404_error.png"/>
+        <img :src="image"/>
       </div>
-      <h2 class="title">PAGE NOT FOUND</h2>
-      <h3 class="desc">WE COULDN’T FIND THIS PAGE</h3>
-      <router-link to="/" class="backBtn" tag="span">返回首页</router-link>
+      <h2 class="title" v-text="title"></h2>
+      <h3 class="desc" v-text="desc"></h3>
+      <router-link :to="path" class="backBtn" tag="span">返回首页</router-link>
     </div>
   </div>
 </template>
+<script type="text/javascript">
+  export default {
+    name: 'noPage',
+    data() {
+      return {
+        image: require('./images/404_error.png'),
+        title: 'PAGE NOT FOUND',
+        desc: 'WE COULDN’T FIND THIS PAGE',
+        path: '/'
+      }
+    }
+  }
+</script>
 <style lang="scss" type="text/scss" rel="stylesheet/scss">
   .error-page {
     position: absolute;

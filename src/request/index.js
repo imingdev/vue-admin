@@ -44,7 +44,6 @@ const install = function (Vue) {
     let resData = response.data
     let dataCode = resData.code
     let dataMsg = resData.msg
-    let dataResult = resData.data
     if (dataCode === port_code.success) {
       return Promise.resolve(resData)
     } else if (dataCode === port_code.unlogin) {

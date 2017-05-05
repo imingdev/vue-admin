@@ -34,17 +34,20 @@
       }
     },
     created(){
-      this.get_echarts_instance()
+      /**
+       * 按需引入 ECharts 图表和组件，这里先全部引入
+       * doc: http://echarts.baidu.com
+       */
+      require(['echarts'], echarts => {
+        this.echarts_instance = echarts
+        this.$nextTick(this.get_echarts_instance)
+      })
     },
     methods: {
       get_echarts_instance(){
-        //按需引入 ECharts 图表和组件，这里先全部引入
-        require(['echarts'], (echarts) => {
-          this.echarts_instance = echarts
-          this.create_chartsA()
-          this.create_chartsB()
-          this.create_chartsC()
-        })
+        this.create_chartsA()
+        this.create_chartsB()
+        this.create_chartsC()
       },
       create_chartsA(){
         let _dom = this.$refs.chartsA
@@ -116,7 +119,6 @@
             }
           ]
         })
-
       },
       create_chartsB(){
         let _dom = this.$refs.chartsB
