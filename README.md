@@ -4,7 +4,7 @@
 ***
 *  vue-cli
 *  vue
-*  vue-resource
+*  axios
 *  vue-router
 *  vuex
 *  font-awesome
@@ -47,6 +47,7 @@ npm run build
 │   ├── components            // 各种组件
 │   ├── pages                 // 各种页面
 │   ├── plugins               // 各种插件
+│   ├── request               // 数据请求封装
 │   ├── router                // 路由配置及map
 │   ├── store                 // Vuex 状态管理器
 │   ├── App.vue               // 根组件
@@ -69,7 +70,6 @@ npm run build
 ***
 ### 捐赠
 ![image](https://raw.githubusercontent.com/zzmhot/vue-admin/images/images_4.jpg)
-喜欢这个项目？捐助一杯咖啡支持下（￥28）
 ***
 ### 结束
 
