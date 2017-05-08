@@ -9,7 +9,7 @@
  */
 
 //存储前缀
-import {storagePrefix} from './setting'
+import {storage_prefix} from 'common/config'
 
 import {tools_verify} from 'common/tools'
 
@@ -24,7 +24,7 @@ export default new class Cookie {
   constructor() {
     this.defaults = {}
     this.expiresMultiplier = 60 * 60 * 24
-    this.prefix = storagePrefix
+    this.prefix = storage_prefix
   }
 
 

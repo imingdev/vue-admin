@@ -19,7 +19,9 @@ const install = function (Vue) {
   //定义属性到Vue原型中
   Object.defineProperties(Vue.prototype, {
     $dateFormat: {
-      value: dateFormat
+      get() {
+        return dateFormat
+      }
     }
   })
 }

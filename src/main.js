@@ -24,7 +24,7 @@ import router from './router'
 //导入状态管理器
 import store from 'store'
 //导入请求框架
-import request from './request'
+import api from './api'
 //导入自定义插件
 import Plugins from 'plugins'
 //导入主视图文件
@@ -36,8 +36,8 @@ Vue.use(ElementUI)
 //使用自定义插件
 Vue.use(Plugins)
 
-//使用request
-Vue.use(request)
+//使用api
+Vue.use(api)
 
 //发布后是否显示提示
 Vue.config.productionTip = false

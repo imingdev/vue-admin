@@ -27,9 +27,11 @@ var data_list = [{
 exports.list = Mock.mock({
   code: port_code.success,
   msg: "获取成功",
-  "data|15": data_list,
-  page: 1,
-  "total|50-200": 50
+  data: {
+    "result|15": data_list,
+    page: 1,
+    "total|50-200": 50
+  }
 })
 
 exports.get = Mock.mock({

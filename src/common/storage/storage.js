@@ -9,7 +9,7 @@
  */
 
 //存储前缀
-import {storagePrefix} from './setting'
+import {storage_prefix} from 'common/config'
 
 import {tools_verify} from 'common/tools'
 
@@ -21,7 +21,7 @@ class Storage {
     } else if (type === 'session') {
       this.store = window.sessionStorage
     }
-    this.prefix = storagePrefix
+    this.prefix = storage_prefix
   }
 
   set(key, value) {

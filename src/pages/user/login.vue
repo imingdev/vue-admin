@@ -24,8 +24,8 @@
   </div>
 </template>
 <script type="text/javascript">
-  import {port_user, port_code} from 'common/port_uri'
   import {mapActions} from 'vuex'
+  import {port_user, port_code} from 'common/port_uri'
   import {SET_USER_INFO} from 'store/actions/type'
 
   export default{
@@ -53,7 +53,7 @@
           if (valid) {
             this.load_data = true
             //登录提交
-            this.$http.post(port_user.login, this.form)
+            this.$fetch.api_user.login(this.form)
               .then(({data, msg}) => {
                 this.set_user_info({
                   user: data,

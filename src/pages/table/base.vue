@@ -93,7 +93,6 @@
 </template>
 <script type="text/javascript">
   import {panelTitle, bottomToolBar} from 'components'
-  import {port_table} from 'common/port_uri'
 
   export default{
     data(){
@@ -126,14 +125,12 @@
       //获取数据
       get_table_data(){
         this.load_data = true
-        this.$http.get(port_table.list, {
-          params: {
-            page: this.currentPage,
-            length: this.length
-          }
+        this.$fetch.api_table.list({
+          page: this.currentPage,
+          length: this.length
         })
-          .then(({data, page, total}) => {
-            this.table_data = data
+          .then(({data: {result, page, total}}) => {
+            this.table_data = result
             this.currentPage = page
             this.total = total
             this.load_data = false
@@ -151,7 +148,7 @@
         })
           .then(() => {
             this.load_data = true
-            this.$http.post(port_table.del, item)
+            this.$fetch.api_table.del(item)
               .then(({msg}) => {
                 this.get_table_data()
                 this.$message.success(msg)
@@ -180,7 +177,7 @@
         })
           .then(() => {
             this.load_data = true
-            this.$http.post(port_table.batch_del, this.batch_select)
+            this.$fetch.api_table.batch_del(this.batch_select)
               .then(({msg}) => {
                 this.get_table_data()
                 this.$message.success(msg)

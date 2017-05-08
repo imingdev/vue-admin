@@ -62,7 +62,6 @@
 </template>
 <script type="text/javascript">
   import {panelTitle} from 'components'
-  import {port_table, port_file, port_code} from 'common/port_uri'
   import {tools_verify} from 'common/tools'
 
   export default{
@@ -91,10 +90,8 @@
       //获取数据
       get_form_data(){
         this.load_data = true
-        this.$http.get(port_table.get, {
-          params: {
-            id: this.route_id
-          }
+        this.$fetch.api_table.get({
+          id: this.route_id
         })
           .then(({data}) => {
             this.form = data
@@ -113,7 +110,7 @@
         this.$refs.form.validate((valid) => {
           if (!valid) return false
           this.on_submit_loading = true
-          this.$http.post(port_table.save, this.form)
+          this.$fetch.api_table.save(this.form)
             .then(({msg}) => {
               this.$message.success(msg)
               setTimeout(() => {
