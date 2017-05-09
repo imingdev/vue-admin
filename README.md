@@ -4,7 +4,7 @@
 ***
 *  vue-cli
 *  vue
-*  vue-resource
+*  axios
 *  vue-router
 *  vuex
 *  font-awesome
@@ -12,6 +12,7 @@
 *  scss
 *  webpack
 *  mock
+*  echarts
 
 ### 安装
 
@@ -69,7 +70,6 @@ npm run build
 ***
 ### 捐赠
 ![image](https://raw.githubusercontent.com/zzmhot/vue-admin/images/images_4.jpg)
-喜欢这个项目？捐助一杯咖啡支持下（￥28）
 ***
 ### 结束
 
