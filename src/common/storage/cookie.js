@@ -11,7 +11,7 @@
 //存储前缀
 import {storage_prefix} from 'common/config'
 
-import {tools_verify} from 'common/tools'
+import {tools_verify, tools_base64} from 'common/tools'
 
 /**
  * cookies操作类
@@ -82,7 +82,7 @@ export default new class Cookie {
     let secure = options.secure || this.defaults.secure ? ';secure' : ''
     if (options.secure === false) secure = ''
     //设置cookie
-    document.cookie = tools_verify.encode(this.prefix + key) + '=' + tools_verify.encode(JSON.stringify(value)) + expires + path + domain + secure
+    document.cookie = tools_base64.encode(this.prefix + key) + '=' + tools_base64.encode(JSON.stringify(value)) + expires + path + domain + secure
     return this
   }
 
@@ -111,8 +111,8 @@ export default new class Cookie {
     for (let i = 0, l = cookieArr.length; i < l; i++) {
       let item = cookieArr[i].split('=');
       //arr.shift()把第一个数组删除并得到删除的值
-      let key = tools_verify.decode(item.shift())
-      let value = tools_verify.decode(item.join(''))
+      let key = tools_base64.decode(item.shift())
+      let value = tools_base64.decode(item.join(''))
       result[key] = value
     }
     return result
