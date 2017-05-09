@@ -105,7 +105,6 @@ export default new class Cookie {
    */
   all() {
     let cookie = document.cookie
-    console.log(cookie)
     if (cookie === '') return {}
     let cookieArr = cookie.split('; '),
       result = {}
