@@ -19,20 +19,22 @@ import 'nprogress/nprogress.css'
 
 //import components
 //view page warp component
-const viewPageComponent = require('pages/App')
+import viewPageComponent from 'pages/App'
 
+//home
+import homeComponent from 'pages/home'
 //404
-const noPageComponent = require('pages/error/404')
+import noPageComponent from 'pages/error/404'
 //login
-const loginComponent = require('pages/user/login')
+import loginComponent from 'pages/user/login'
 //base table
-const baseTableComponent = require('pages/table/base')
+import baseTableComponent from 'pages/table/base'
 //sort table
-const sortTableComponent = require('pages/table/sort')
+import sortTableComponent from 'pages/table/sort'
 //save table
-const saveTableComponent = require('pages/table/save')
+import saveTableComponent from 'pages/table/save'
 //bar charts
-const barChartsComponent = require('pages/charts/bar')
+import barChartsComponent from 'pages/charts/bar'
 
 Vue.use(VueRouter)
 
@@ -56,7 +58,7 @@ const routes = [{
   children: [{
     path: '/home',
     name: 'home',
-    component: require('pages/home'),
+    component: homeComponent,
     meta: {
       title: "主页",
       auth: true
