@@ -116,7 +116,6 @@ export default new class Cookie {
       let value = tools_uri.decode(item.join(''))
       result[key] = value
     }
-    console.log(result)
     return result
   }
 }
