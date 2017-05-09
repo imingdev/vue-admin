@@ -50,32 +50,27 @@
       //提交
       submit_form() {
         this.$refs.form.validate((valid) => {
-          if (valid) {
-            this.load_data = true
-            //登录提交
-            this.$fetch.api_user.login(this.form)
-              .then(({data, msg}) => {
-                this.set_user_info({
-                  user: data,
-                  login: true
+          if (!valid) return false
+          this.load_data = true
+          //登录提交
+          this.$fetch.api_user.login(this.form)
+            .then(({data, msg}) => {
+              this.set_user_info({
+                user: data,
+                login: true
+              })
+              this.$message.success(msg)
+              setTimeout(this.$router.push({path: '/'}), 500)
+            })
+            .catch(({code}) => {
+              this.load_data = false
+              if (code === port_code.error) {
+                this.$notify.info({
+                  title: '温馨提示',
+                  message: '账号和密码都为：admin'
                 })
-                this.$message.success(msg)
-                setTimeout(() => {
-                  this.$router.push({path: '/'})
-                }, 500)
-              })
-              .catch(({code}) => {
-                this.load_data = false
-                if (code === port_code.error) {
-                  this.$notify.info({
-                    title: '温馨提示',
-                    message: '账号和密码都为：admin'
-                  })
-                }
-              })
-          } else {
-            return false
-          }
+              }
+            })
         })
       }
     }

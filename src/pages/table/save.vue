@@ -26,7 +26,6 @@
                 v-model="form.age"
                 style="width: 250px;">
               </el-input-number>
-              </el-input>
             </el-form-item>
             <el-form-item label="生日:">
               <el-date-picker
@@ -62,7 +61,6 @@
 </template>
 <script type="text/javascript">
   import {panelTitle} from 'components'
-  import {tools_verify} from 'common/tools'
 
   export default{
     data(){
@@ -113,9 +111,7 @@
           this.$fetch.api_table.save(this.form)
             .then(({msg}) => {
               this.$message.success(msg)
-              setTimeout(() => {
-                this.$router.back()
-              }, 500)
+              setTimeout(this.$router.back(), 500)
             })
             .catch(() => {
               this.on_submit_loading = false
