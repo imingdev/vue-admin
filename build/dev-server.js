@@ -11,7 +11,6 @@ var express = require('express')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
-var request = require('request')
 var bodyParser = require('body-parser')
 var apiRouter = require('../server/controller')
 
@@ -29,12 +28,6 @@ var app = express()
 app.use(bodyParser.json())
 
 app.use(apiRouter)
-
-// //通过代理的方式与后端通信，解决了数据请求跨域的问题
-// app.use('/', function (req, res) {
-//   var url = 'https://www.baidu.com/' + req.url;
-//   req.pipe(request(url)).pipe(res);
-// });
 
 var compiler = webpack(webpackConfig)
 
