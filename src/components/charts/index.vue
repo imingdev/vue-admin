@@ -63,7 +63,6 @@
     },
     destroyed(){
       this.charts = null
-      this.option = null
     },
     watch: {
       option: {
