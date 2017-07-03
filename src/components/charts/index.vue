@@ -10,17 +10,12 @@
 -->
 <template>
   <div
-    :ref="refid"
     v-loading="load_data"
     element-loading-text="拼命加载中"></div>
 </template>
 <script type="text/javascript">
   export default{
     props: {
-      refid: {
-        type: String,
-        require: true
-      },
       option: {
         type: Object,
         default: null
@@ -46,8 +41,8 @@
         import('echarts')
           .then(({init}) => {
             this.$nextTick(() => {
-              const {$refs, refid, setOption, option} = this
-              this.charts = init($refs[refid])
+              const {$el, setOption, option} = this
+              this.charts = init($el)
               this.load_data = false
               this.charts.showLoading()
               option && setOption()
@@ -58,9 +53,11 @@
       },
       //设置属性到charts
       setOption(){
-        if (this.charts) {
-          this.charts.setOption(this.option)
-          this.charts.hideLoading()
+        const {charts, option} = this
+        if (charts && option) {
+          charts.setOption(option)
+          charts.hideLoading()
+          this.$emit('init', {charts, option})
         }
       }
     },

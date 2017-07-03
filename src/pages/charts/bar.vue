@@ -3,14 +3,14 @@
     <div class="panel">
       <panel-title :title="$route.meta.title"></panel-title>
       <div class="panel-body">
-        <charts refid="chartsA" :option="optionA" style="height: 700px"></charts>
+        <charts :option="optionA" style="height: 700px"></charts>
       </div>
     </div>
     <el-col :span="12">
       <div class="panel" style="margin-right: 10px">
         <panel-title :title="$route.meta.title"></panel-title>
         <div class="panel-body">
-          <charts refid="chartsB" :option="optionB" style="height: 400px"></charts>
+          <charts :option="optionB" style="height: 400px" @init="initChartsB"></charts>
         </div>
       </div>
     </el-col>
@@ -18,7 +18,7 @@
       <div class="panel" style="margin-left: 10px">
         <panel-title :title="$route.meta.title"></panel-title>
         <div class="panel-body">
-          <charts refid="chartsC" :option="optionC" style="height: 400px"></charts>
+          <charts :option="optionC" style="height: 400px"></charts>
         </div>
       </div>
     </el-col>
@@ -40,11 +40,9 @@
     },
     methods: {
       create_all_charts(){
-        setTimeout(() => {
-          this.create_chartsA()
-          this.create_chartsB()
-          this.create_chartsC()
-        }, 1500)
+        setTimeout(this.create_chartsA, 500)
+        setTimeout(this.create_chartsB, 1500)
+        setTimeout(this.create_chartsC, 2500)
       },
       create_chartsA(){
         this.optionA = {
@@ -115,8 +113,8 @@
         }
       },
       create_chartsB(){
-        let dataAxis = ['点', '击', '柱', '子', '或', '者', '两', '指', '在', '触', '屏', '上', '滑', '动', '能', '够', '自', '动', '缩', '放'];
-        let data = [220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220];
+        var dataAxis = ['点', '击', '柱', '子', '或', '者', '两', '指', '在', '触', '屏', '上', '滑', '动', '能', '够', '自', '动', '缩', '放'];
+        var data = [220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220];
         let yMax = 500;
         let dataShadow = [];
 
@@ -279,6 +277,19 @@
             }
           ]
         }
+      },
+      //初始化chartsB的回调
+      initChartsB({charts, option: {xAxis, series}}){
+        const dataAxis = xAxis.data
+        const data = series[1].data
+        const zoomSize = 6
+        charts.on('click', (params) => {
+          charts.dispatchAction({
+            type: 'dataZoom',
+            startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
+            endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
+          })
+        })
       }
     },
     components: {
