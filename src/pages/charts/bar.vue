@@ -3,14 +3,14 @@
     <div class="panel">
       <panel-title :title="$route.meta.title"></panel-title>
       <div class="panel-body">
-        <div ref="chartsA" style="height: 700px"></div>
+        <charts refid="chartsA" :option="optionA" style="height: 700px"></charts>
       </div>
     </div>
     <el-col :span="12">
       <div class="panel" style="margin-right: 10px">
         <panel-title :title="$route.meta.title"></panel-title>
         <div class="panel-body">
-          <div ref="chartsB" style="height: 400px"></div>
+          <charts refid="chartsB" :option="optionB" style="height: 400px"></charts>
         </div>
       </div>
     </el-col>
@@ -18,42 +18,36 @@
       <div class="panel" style="margin-left: 10px">
         <panel-title :title="$route.meta.title"></panel-title>
         <div class="panel-body">
-          <div ref="chartsC" style="height: 400px"></div>
+          <charts refid="chartsC" :option="optionC" style="height: 400px"></charts>
         </div>
       </div>
     </el-col>
   </el-row>
 </template>
 <script type="text/javascript">
-  import {panelTitle} from 'components'
+  import {panelTitle, charts} from 'components'
 
   export default{
     data(){
       return {
-        echarts_instance: null
+        optionA: null,
+        optionB: null,
+        optionC: null
       }
     },
     created(){
-      /**
-       * 按需引入 ECharts 图表和组件，这里先全部引入
-       * doc: http://echarts.baidu.com
-       */
-      require(['echarts'], echarts => {
-        this.echarts_instance = echarts
-        this.$nextTick(this.get_echarts_instance)
-      })
+      this.create_all_charts()
     },
     methods: {
-      get_echarts_instance(){
-        this.create_chartsA()
-        this.create_chartsB()
-        this.create_chartsC()
+      create_all_charts(){
+        setTimeout(() => {
+          this.create_chartsA()
+          this.create_chartsB()
+          this.create_chartsC()
+        }, 1500)
       },
       create_chartsA(){
-        let _dom = this.$refs.chartsA
-        let myChart = this.echarts_instance.init(_dom)
-
-        myChart.setOption({
+        this.optionA = {
           tooltip: {
             trigger: 'axis',
             axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -118,21 +112,19 @@
               data: [-120, -132, -101, -134, -190, -230, -210]
             }
           ]
-        })
+        }
       },
       create_chartsB(){
-        let _dom = this.$refs.chartsB
-        let myChart = this.echarts_instance.init(_dom)
-        var dataAxis = ['点', '击', '柱', '子', '或', '者', '两', '指', '在', '触', '屏', '上', '滑', '动', '能', '够', '自', '动', '缩', '放'];
-        var data = [220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220];
-        var yMax = 500;
-        var dataShadow = [];
+        let dataAxis = ['点', '击', '柱', '子', '或', '者', '两', '指', '在', '触', '屏', '上', '滑', '动', '能', '够', '自', '动', '缩', '放'];
+        let data = [220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220];
+        let yMax = 500;
+        let dataShadow = [];
 
         for (var i = 0; i < data.length; i++) {
           dataShadow.push(yMax);
         }
 
-        let option = {
+        this.optionB = {
           grid: {
             left: '16px',
             right: '16px',
@@ -187,49 +179,13 @@
             },
             {
               type: 'bar',
-              itemStyle: {
-                normal: {
-                  color: new this.echarts_instance.graphic.LinearGradient(
-                    0, 0, 0, 1,
-                    [
-                      {offset: 0, color: '#83bff6'},
-                      {offset: 0.5, color: '#188df0'},
-                      {offset: 1, color: '#188df0'}
-                    ]
-                  )
-                },
-                emphasis: {
-                  color: new this.echarts_instance.graphic.LinearGradient(
-                    0, 0, 0, 1,
-                    [
-                      {offset: 0, color: '#2378f7'},
-                      {offset: 0.7, color: '#2378f7'},
-                      {offset: 1, color: '#83bff6'}
-                    ]
-                  )
-                }
-              },
               data: data
             }
           ]
-        };
-        myChart.setOption(option)
-        // Enable data zoom when user click bar.
-        var zoomSize = 6;
-        myChart.on('click', function (params) {
-          console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
-          myChart.dispatchAction({
-            type: 'dataZoom',
-            startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
-            endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
-          });
-        });
-
+        }
       },
       create_chartsC(){
-        let _dom = this.$refs.chartsC
-        let myChart = this.echarts_instance.init(_dom)
-        myChart.setOption({
+        this.optionC = {
           tooltip: {
             trigger: 'axis',
             axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -322,14 +278,12 @@
               data: [62, 82, 91, 84, 109, 110, 120]
             }
           ]
-        })
+        }
       }
     },
     components: {
-      panelTitle
-    },
-    destroyed(){
-      this.echarts_instance = null
+      panelTitle,
+      charts
     }
   }
 </script>
