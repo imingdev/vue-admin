@@ -29,6 +29,8 @@ import api from './api'
 import Plugins from 'plugins'
 //导入主视图文件
 import App from './App'
+//导入mock数据
+import './mock'
 
 //使用element-ui
 Vue.use(ElementUI)

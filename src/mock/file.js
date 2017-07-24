@@ -9,10 +9,10 @@
  *
  */
 
-var Mock = require('mockjs')
-var port_code = require('../../src/common/port_uri').port_code
+import Mock from 'mockjs'
+import {port_code, port_file} from 'common/port_uri'
 
-exports.image_upload = Mock.mock({
+Mock.mock(new RegExp(port_file.image_upload), {
   code: port_code.success,
   msg: "图片上传成功",
   data: {

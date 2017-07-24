@@ -9,12 +9,12 @@
  *
  */
 
-const port_code = require("./code")
-const port_user = require("./user")
-const port_table = require("./table")
-const port_file = require("./file")
+import * as port_code from './code'
+import * as port_user from './user'
+import * as port_table from './table'
+import * as port_file from './file'
 
-module.exports = {
+export {
   port_code,
   port_user,
   port_table,

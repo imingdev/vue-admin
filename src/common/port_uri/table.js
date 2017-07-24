@@ -10,12 +10,12 @@
  */
 
 //数据列表
-exports.list = "/api/get/table/list"
+export const list = "/api/get/table/list"
 //根据id查询数据
-exports.get = "/api/get/table/get"
+export const get = "/api/get/table/get"
 //根据id删除数据
-exports.del = "/api/post/table/del"
+export const del = "/api/post/table/del"
 //添加或修改数据
-exports.save = "/api/post/table/save"
+export const save = "/api/post/table/save"
 //批量删除
-exports.batch_del = "/api/post/table/batch/del"
+export const batch_del = "/api/post/table/batch/del"

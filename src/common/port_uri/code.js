@@ -12,8 +12,8 @@
  */
 
 //成功
-exports.success = 0
+export const success = 0
 //错误
-exports.error = 1
+export const error = 1
 //未登录
-exports.unlogin = 2
+export const unlogin = 2
