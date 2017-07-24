@@ -14,12 +14,7 @@ import {port_code, port_user} from 'common/port_uri'
 
 Mock.mock(new RegExp(port_user.login), ({body}) => {
   const {username, password} = JSON.parse(body)
-  if (username !== 'admin' && password !== 'admin') {
-    return Mock.mock({
-      code: port_code.error,
-      msg: "账号或密码错误"
-    })
-  } else {
+  if (username === 'admin' && password === 'admin') {
     return Mock.mock({
       code: port_code.success,
       msg: "登录成功",
@@ -29,6 +24,11 @@ Mock.mock(new RegExp(port_user.login), ({body}) => {
         'age|20-25': 20,
         'desc': '@csentence()'
       }
+    })
+  } else {
+    return Mock.mock({
+      code: port_code.error,
+      msg: "账号或密码错误"
     })
   }
 })
