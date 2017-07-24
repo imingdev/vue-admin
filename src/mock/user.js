@@ -33,11 +33,6 @@ Mock.mock(new RegExp(port_user.login), ({body}) => {
   }
 })
 
-// Mock.mock({
-//   code: port_code.error,
-//   msg: "账号或密码错误"
-// })
-
 Mock.mock(new RegExp(port_user.logout), {
   code: port_code.success,
   msg: "退出成功"
