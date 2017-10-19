@@ -9,7 +9,7 @@
  */
 -->
 <template>
-  <div></div>
+  <div class="charts__panel__warp" v-loading="dataLoading" element-loading-text="玩命加载中..."></div>
 </template>
 <script>
   // enumerating ECharts events for now
@@ -55,9 +55,10 @@
       autoResize: Boolean,
       modules: Array
     },
-    data () {
+    data() {
       return {
-        chart: null
+        chart: null,
+        dataLoading: true
       }
     },
     computed: {
@@ -66,19 +67,19 @@
       // don't depend on reactive values
       width: {
         cache: false,
-        get () {
+        get() {
           return this.chart.getWidth()
         }
       },
       height: {
         cache: false,
-        get () {
+        get() {
           return this.chart.getHeight()
         }
       },
       isDisposed: {
         cache: false,
-        get () {
+        get() {
           return this.chart.isDisposed()
         }
       }
@@ -86,7 +87,7 @@
     watch: {
       // use assign statements to tigger "options" and "group" setters
       options: {
-        handler (options) {
+        handler(options) {
           if (!this.chart && options) {
             this._init()
           } else {
@@ -96,61 +97,61 @@
         deep: true
       },
       group: {
-        handler (group) {
+        handler(group) {
           this.chart.group = group
         }
       }
     },
     methods: {
       // provide a explicit merge option method
-      mergeOptions (options) {
+      mergeOptions(options) {
         this._delegateMethod('setOption', options)
       },
       // just delegates ECharts methods to Vue component
       // use explicit params to reduce transpiled size for now
-      resize (options) {
+      resize(options) {
         this._delegateMethod('resize', options)
       },
-      dispatchAction (payload) {
+      dispatchAction(payload) {
         this._delegateMethod('dispatchAction', payload)
       },
-      convertToPixel (finder, value) {
+      convertToPixel(finder, value) {
         return this._delegateMethod('convertToPixel', finder, value)
       },
-      convertFromPixel (finder, value) {
+      convertFromPixel(finder, value) {
         return this._delegateMethod('convertFromPixel', finder, value)
       },
-      containPixel (finder, value) {
+      containPixel(finder, value) {
         return this._delegateMethod('containPixel', finder, value)
       },
-      showLoading (type, options) {
+      showLoading(type, options) {
         this._delegateMethod('showLoading', type, options)
       },
-      hideLoading () {
+      hideLoading() {
         this._delegateMethod('hideLoading')
       },
-      getDataURL (options) {
+      getDataURL(options) {
         return this._delegateMethod('getDataURL', options)
       },
-      getConnectedDataURL (options) {
+      getConnectedDataURL(options) {
         return this._delegateMethod('getConnectedDataURL', options)
       },
-      clear () {
+      clear() {
         this._delegateMethod('clear')
       },
-      dispose () {
+      dispose() {
         this._delegateMethod('dispose')
       },
-      _delegateMethod (name, ...args) {
+      _delegateMethod(name, ...args) {
         if (!this.chart) {
           return
         }
         return this.chart[name](...args)
       },
-      _init () {
-        if (this.chart) {
-          return
-        }
+      _init() {
+        if (this.chart) return false
+
+        this.dataLoading = true
         /**
          * 按需引入 ECharts 图表组件
          * doc: http://echarts.baidu.com
@@ -178,21 +179,25 @@
               window.addEventListener('resize', _resizeHanlder, false)
             }
             this.chart = chart
+            this.dataLoading = false
+          })
+          .catch(_ => {
+            this.dataLoading = false
           })
       },
-      _resizeHanlder(){
+      _resizeHanlder() {
         window.setTimeout(() => {
           this.chart.resize()
         }, 100)
       }
     },
-    mounted () {
+    mounted() {
       // auto init if `options` is already provided
       if (this.options) {
         this._init()
       }
     },
-    beforeDestroy () {
+    beforeDestroy() {
       if (!this.chart) {
         return
       }
@@ -201,20 +206,20 @@
       }
       this.dispose()
     },
-    connect (group) {
+    connect(group) {
       const {chart} = this
       if (typeof group !== 'string') {
         group = group.map(chart => chart.chart)
       }
       this.chart.connect(group)
     },
-    disconnect (group) {
+    disconnect(group) {
       this.chart.disConnect(group)
     },
-    registerMap (...args) {
+    registerMap(...args) {
       this.chart.registerMap(...args)
     },
-    registerTheme (...args) {
+    registerTheme(...args) {
       this.chart.registerTheme(...args)
     }
   }
