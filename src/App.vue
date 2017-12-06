@@ -14,6 +14,7 @@
     </main-content>
   </section>
 </template>
+<!-- 测试提交 -->
 
 <script type="text/javascript">
   import {mainContent} from 'components'
