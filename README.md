@@ -1,19 +1,5 @@
  vue-admin [Live Demo](http://vueadmin.hinplay.com/)
 
-### 项目技术架构
-***
-*  vue-cli
-*  vue
-*  axios
-*  vue-router
-*  vuex
-*  font-awesome
-*  element-ui
-*  scss
-*  webpack
-*  mock
-*  echarts
-
 ### 安装
 
 ***
