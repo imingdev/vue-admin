@@ -1,22 +1,16 @@
 <template>
-  <div class="panel">
-    <panel-title :title="$route.meta.title"></panel-title>
-    <div class="panel-body">
-      {{msg}}
-    </div>
-  </div>
+  <ui-container>
+    <div slot="header">header</div>
+    <div>home page</div>
+  </ui-container>
 </template>
 <script type="text/javascript">
-  import {panelTitle} from 'components'
-
-  export default{
-    data(){
-      return {
-        msg: 'home page'
-      }
-    },
-    components: {
-      panelTitle
-    }
+export default {
+  name: 'Home',
+  created () {
   }
+}
 </script>
+<style lang="scss" type="text/scss" rel="stylesheet/scss">
+
+</style>

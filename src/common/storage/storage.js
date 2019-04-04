@@ -1,66 +1,55 @@
 /**
- * @file: index.
  * @intro: Storage工具类.
- * @author: zzmhot.
- * @email: zzmhot@163.com.
- * @Date: 2017/4/27 15:28.
- * @Copyright(©) 2017 by zzmhot.
  *
  */
 
-//存储前缀
-import {storage_prefix} from 'common/config'
-
-import {tools_verify, tools_uri} from 'common/tools'
+// 存储前缀
+import {storagePrefix} from 'src/common/setting'
 
 class Storage {
-
-  constructor(type) {
+  constructor (type) {
     if (type === 'local') {
       this.store = window.localStorage
     } else if (type === 'session') {
       this.store = window.sessionStorage
     }
-    this.prefix = storage_prefix
+    this.prefix = storagePrefix
   }
 
-  set(key, value) {
+  set (key, value) {
     try {
       value = JSON.stringify(value)
+      this.store.setItem(this.prefix + key, value)
     } catch (e) {
-      value = value
+      // eslint-disable-next-line
     }
-
-    this.store.setItem(tools_uri.encode(this.prefix + key), tools_uri.encode(value))
 
     return this
   }
 
-  get(key) {
+  get (key) {
     if (!key) {
       throw new Error('没有找到key。')
-      return
     }
     if (typeof key === 'object') {
       throw new Error('key不能是一个对象。')
-      return
     }
-    let value = this.store.getItem(tools_uri.encode(this.prefix + key))
+    let value = this.store.getItem(this.prefix + key)
 
     if (value === null) {
       return {}
     }
 
     try {
-      value = JSON.parse(tools_uri.decode(value))
+      value = JSON.parse(value)
     } catch (e) {
       value = {}
     }
     return value
   }
 
-  remove(key) {
-    this.store.removeItem(tools_uri.encode(this.prefix + key))
+  remove (key) {
+    this.store.removeItem(this.prefix + key)
     return this
   }
 }

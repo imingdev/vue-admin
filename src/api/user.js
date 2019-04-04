@@ -1,28 +1,18 @@
-/**
- * @file: user.
- * @intro: 用户请求数据配置.
- * @author: zzmhot.
- * @email: zzmhot@163.com.
- * @Date: 2017/5/8 15:18.
- * @Copyright(©) 2017 by zzmhot.
- *
- */
+import fetch from 'src/fetch'
+import * as userUrl from './constant/user'
 
-import fetch from 'common/fetch'
-import {port_user} from 'common/port_uri'
-
-//登录
-export function login(data) {
+// 登录
+export const login = (data) => {
   return fetch({
-    url: port_user.login,
+    url: userUrl.login,
     method: 'post',
     data
   })
 }
-//登出
-export function logout() {
+// 登出
+export const logout = () => {
   return fetch({
-    url: port_user.logout,
+    url: userUrl.logout,
     method: 'post'
   })
 }

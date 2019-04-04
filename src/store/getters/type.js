@@ -1,12 +1,9 @@
 /**
- * @file: type.
  * @intro: getters的类型管理.
- * @author: zzmhot.
- * @email: zzmhot@163.com.
- * @Date: 2017/4/25 10:49.
- * @Copyright(©) 2017 by zzmhot.
  *
  */
 
-//获取用户信息
-export const GET_USER_INFO = 'get_user_info'
+// 获取用户信息
+export const GET_USER_INFO = 'GET_USER_INFO'
+// 判断是否登录
+export const GET_IS_LOGIN = 'GET_IS_LOGIN'

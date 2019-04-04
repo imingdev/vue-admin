@@ -1,56 +1,43 @@
-/**
- * @file: table.
- * @intro: table请求数据配置.
- * @author: zzmhot.
- * @email: zzmhot@163.com.
- * @Date: 2017/5/8 15:25.
- * @Copyright(©) 2017 by thinkive.
- *
- */
+import fetch from 'src/fetch'
+import * as tableUrl from './constant/table'
 
-import fetch from 'common/fetch'
-import {port_table} from 'common/port_uri'
-
-//数据列表
-export function list(params) {
+// 数据列表
+export const list = params => {
   return fetch({
-    url: port_table.list,
-    method: 'get',
+    url: tableUrl.list,
     params
   })
 }
 
-//根据id查询数据
-export function get(params) {
+// 根据id查询数据
+export const get = (params) => {
   return fetch({
-    url: port_table.get,
-    method: 'get',
+    url: tableUrl.get,
     params
   })
 }
 
-//根据id删除数据
-export function del(data) {
+// 根据id删除数据
+export const del = (data) => {
   return fetch({
-    url: port_table.del,
+    url: tableUrl.del,
+    method: 'delete',
+    data
+  })
+}
+// 添加或修改数据
+export const save = (data) => {
+  return fetch({
+    url: tableUrl.save,
     method: 'post',
     data
   })
 }
-//添加或修改数据
-export function save(data) {
+// 批量删除
+export const batchDel = (data) => {
   return fetch({
-    url: port_table.save,
-    method: 'post',
+    url: tableUrl.batchDel,
+    method: 'delete',
     data
   })
 }
-//批量删除
-export function batch_del(data) {
-  return fetch({
-    url: port_table.batch_del,
-    method: 'post',
-    data
-  })
-}
-

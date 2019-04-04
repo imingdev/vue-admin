@@ -1,53 +1,42 @@
 /**
- * @file: cookie.
  * @intro: cookie存储类.
- * @author: zzmhot.
- * @email: zzmhot@163.com.
- * @Date: 2017/4/28 10:45.
- * @Copyright(©) 2017 by zzmhot.
  *
  */
 
-//存储前缀
-import {storage_prefix} from 'common/config'
-
-import {tools_verify, tools_uri} from 'common/tools'
+import {storagePrefix} from 'src/common/setting'
+import {isArray, isObject} from 'src/common/verify'
 
 /**
  * cookies操作类
  */
-export default new class Cookie {
-
+class Cookie {
   /**
    * 构造函数
    */
-  constructor() {
+  constructor () {
     this.defaults = {}
     this.expiresMultiplier = 60 * 60 * 24
-    this.prefix = storage_prefix
+    this.prefix = storagePrefix
   }
-
 
   /**
    * 根据key获取cookie的值
    * @param {string} key 键
    * @returns {object} 值
    */
-  get(key) {
+  get (key) {
     if (!key) {
       throw new Error('没有找到key。')
-      return
     }
     if (typeof key === 'object') {
       throw new Error('key不能是一个对象。')
-      return
     }
     let cookies = this.all()
     let value = cookies[this.prefix + key]
     try {
       value = JSON.parse(value)
     } catch (e) {
-      value = {}
+      value = null
     }
     return value
   }
@@ -59,30 +48,30 @@ export default new class Cookie {
    * @param options 选项
    * @returns {Cookie}
    */
-  set(key, value, options) {
-    options = tools_verify.isObject(options) ? options : {expires: options}
+  set (key, value, options) {
+    options = isObject(options) ? options : {expires: options}
     // 如果expires为空的话那么就设置为session.
-    let expires = options.expires !== undefined ? options.expires : (this.defaults.expires || ''),
-      expiresType = typeof(expires)
+    let expires = options.expires !== undefined ? options.expires : (this.defaults.expires || '')
+    let expiresType = typeof (expires)
     if (expiresType === 'string' && expires !== '') {
       expires = new Date(expires)
     } else if (expiresType === 'number') {
-      expires = new Date(+new Date + 1000 * this.expiresMultiplier * expires)
+      expires = new Date(+new Date() + 1000 * this.expiresMultiplier * expires)
     }
     if (expires !== '' && 'toGMTString' in expires) {
       expires = ';expires=' + expires.toGMTString()
     }
-    //设置path
+    // 设置path
     let path = options.path || this.defaults.path
     path = path ? ';path=' + path : ''
-    //设置domain
+    // 设置domain
     let domain = options.domain || this.defaults.domain
     domain = domain ? ';domain=' + domain : ''
-    //设置secure
+    // 设置secure
     let secure = options.secure || this.defaults.secure ? ';secure' : ''
     if (options.secure === false) secure = ''
-    //设置cookie
-    document.cookie = tools_uri.encode(this.prefix + key) + '=' + tools_uri.encode(JSON.stringify(value)) + expires + path + domain + secure
+    // 设置cookie
+    document.cookie = this.prefix + key + '=' + JSON.stringify(value) + expires + path + domain + secure
     return this
   }
 
@@ -91,10 +80,10 @@ export default new class Cookie {
    * @param {string||array} keys 删除cookie的key
    * @returns {Cookie}
    */
-  remove(keys) {
-    keys = tools_verify.isArray(keys) ? keys : [keys]
+  remove (keys) {
+    keys = isArray(keys) ? keys : [keys]
     for (let i = 0, l = keys.length; i < l; i++) {
-      this.set(keys[i], '', -1);
+      this.set(keys[i], '', -1)
     }
     return this
   }
@@ -103,18 +92,20 @@ export default new class Cookie {
    * 获取所有的cookie
    * @returns {object} cookie对象
    */
-  all() {
+  all () {
     let cookie = document.cookie
     if (cookie === '') return {}
-    let cookieArr = cookie.split('; '),
-      result = {}
+    let cookieArr = cookie.split('; ')
+    let result = {}
     for (let i = 0, l = cookieArr.length; i < l; i++) {
-      let item = cookieArr[i].split('=');
-      //arr.shift()把第一个数组删除并得到删除的值
-      let key = tools_uri.decode(item.shift())
-      let value = tools_uri.decode(item.join(''))
+      let item = cookieArr[i].split('=')
+      // arr.shift()把第一个数组删除并得到删除的值
+      let key = item.shift()
+      let value = item.join('')
       result[key] = value
     }
     return result
   }
 }
+
+export default new Cookie()

@@ -1,0 +1,150 @@
+@import "./mixin";
+
+* {
+  word-break: break-all;
+  word-wrap: break-word;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  height: 100%;
+}
+
+ol, ul, li {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/************ Embedded content ************/
+img {
+  border: 0;
+  width: auto;
+  height: auto;
+  max-width: 100% !important;
+  max-height: 100%;
+  vertical-align: top;
+  -ms-interpolation-mode: bicubic;
+}
+
+img:not([src*="/"]) {
+  display: none !important;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/************ Grouping content ************/
+figure {
+  margin: 1em 40px;
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+}
+
+pre {
+  overflow: auto;
+}
+
+code, kbd, pre, samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.block {
+  display: block;
+}
+
+.inline_block {
+  display: inline-block;
+}
+
+.hide {
+  display: none;
+}
+
+.ofh {
+  overflow: hidden;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.align_left {
+  text-align: left;
+}
+
+.align_center {
+  text-align: center;
+}
+
+.align_right {
+  text-align: right;
+}
+
+.height_100 {
+  height: 100%;
+}
+
+.width_100 {
+  width: 100%;
+}
+
+.nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex__item {
+  flex: 1;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.backgroundCover {
+  @include defaultBackgroundAttr;
+}

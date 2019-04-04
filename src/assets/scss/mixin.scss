@@ -1,0 +1,22 @@
+@mixin defaultBackgroundImage(
+  $url,
+  $size:cover,
+  $color:transparent,
+  $position:center,
+  $repeat:no-repeat
+) {
+  @if ($url) {
+    background: url($url) $repeat $position $color;
+  } @else {
+    background: $repeat $position $color;
+  }
+  @if ($size) {
+    background-size: $size;
+  }
+}
+
+@mixin defaultBackgroundAttr {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
