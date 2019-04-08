@@ -30,3 +30,10 @@ pom.xml.versionsBackup
 # node ignore
 node_modules/
 dist/
+package-lock.json
+yarn.lock
+auto-routes.js
+
+# local env files
+.env.local
+.env.*.local
