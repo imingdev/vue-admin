@@ -1,5 +1,5 @@
 import fetch from 'src/fetch'
-import * as fileUrl from './constant/file'
+import * as fileUrl from '../constant/file'
 
 // 图片上传
 export const imageUpload = data => {

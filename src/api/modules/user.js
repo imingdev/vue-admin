@@ -1,5 +1,5 @@
 import fetch from 'src/fetch'
-import * as userUrl from './constant/user'
+import * as userUrl from '../constant/user'
 
 // 登录
 export const login = (data) => {

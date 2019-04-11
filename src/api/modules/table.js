@@ -1,5 +1,5 @@
 import fetch from 'src/fetch'
-import * as tableUrl from './constant/table'
+import * as tableUrl from '../constant/table'
 
 // 数据列表
 export const list = params => {
