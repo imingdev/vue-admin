@@ -6,5 +6,5 @@ export default {
     return state.userInfo || {}
   },
   // 判断是否登录
-  [GET_IS_LOGIN]: state => !!state.userInfo
+  [GET_IS_LOGIN]: state => !!state.userInfo && JSON.stringify(state.userInfo) !== '{}'
 }
