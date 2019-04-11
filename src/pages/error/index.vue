@@ -10,7 +10,7 @@
     </div>
   </div>
 </template>
-<script type="text/javascript" layout="full">
+<script type="text/javascript" layout="full" meta="{auth:false}">
 import {homePage} from 'src/common/setting'
 
 export default {
