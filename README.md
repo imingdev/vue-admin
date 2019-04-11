@@ -26,7 +26,6 @@ npm run build
 ### 目录结构
 <pre>
 ├── build                     // 项目的 Webpack 配置文件
-├── config                    // 项目配置目录
 ├── src                       // 开发目录
 │   ├── api                   // 请求接口
 │   ├── assets                // 一些资源文件
