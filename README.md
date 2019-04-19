@@ -1,4 +1,4 @@
-# vue-admin [Live Demo](http://vueadmin.hinplay.com/)
+# vue-admin [Live Demo](http://vue-admin.js.org)
 
 ### 安装
 
