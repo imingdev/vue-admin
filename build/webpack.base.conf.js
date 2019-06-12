@@ -1,10 +1,10 @@
 'use strict'
-require('./create-routes')()
 
 const path = require('path')
 const utils = require('./utils')
 const config = require('./config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const vueRoutesAutoWebpack = require('vue-routes-auto-webpack')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -86,6 +86,18 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new vueRoutesAutoWebpack({
+      pages: resolve('src/pages/**/index.vue'),
+      layouts: resolve('src/layouts/**/index.vue'),
+      output: resolve('src/router/auto-routes.js'),
+      layoutName: 'default',
+      pageImportPrefix: 'src/pages',
+      layoutImportPrefix: 'src/layouts',
+      dynamicRoute: false,
+      dynamicImport: false
+    })
+  ],
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue
     // source contains it (although only uses it if it's native).

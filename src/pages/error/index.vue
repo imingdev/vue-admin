@@ -1,3 +1,11 @@
+<route-config>
+  {
+  layoutName:'full',
+  meta:{
+  auth: false
+  }
+  }
+</route-config>
 <template>
   <div class="page-module error-page flex ofh">
     <div class="errorWarp align_center">
@@ -10,7 +18,7 @@
     </div>
   </div>
 </template>
-<script type="text/javascript" layout="full" meta="{auth:false}">
+<script type="text/javascript">
 import {homePage} from 'src/common/setting'
 
 export default {

@@ -1,3 +1,11 @@
+<route-config>
+  {
+  layoutName:'full',
+  meta:{
+  auth: false
+  }
+  }
+</route-config>
 <template>
   <div class="page-module login-container backgroundCover flex width_100 height_100">
     <div class="login-panel" @keyup.enter="onSubmit">
@@ -18,7 +26,7 @@
     </div>
   </div>
 </template>
-<script type="text/javascript" layout="full" meta="{auth:false}">
+<script type="text/javascript">
 import {mapActions} from 'vuex'
 import {SET_USER_INFO} from 'src/store/actions/type'
 import {homePage} from 'src/common/setting'
