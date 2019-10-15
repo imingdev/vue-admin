@@ -30,6 +30,8 @@ Vue.use(plugin)
 
 // 发布后是否显示提示
 Vue.config.productionTip = false
+// 只有开发时才开启工具
+Vue.config.devtools = process.env.NODE_ENV === 'development'
 
 new Vue({
   router,
