@@ -5,7 +5,7 @@
 ***
 项目地址: (`git clone`)
 ```shell
-git clone https://github.com/mingdev123/vue-admin.git
+git clone https://github.com/imingdev/vue-admin.git
 ```
 通过`npm`安装本地服务第三方依赖模块(需要已安装[Node.js](https://nodejs.org/))
 
@@ -54,14 +54,14 @@ npm run build
 ├── package.json              // 项目配置文件
 </pre>
 
-![image](https://raw.githubusercontent.com/mingdev123/vue-admin/images/images_1.jpg)
+![image](https://raw.githubusercontent.com/imingdev/vue-admin/images/images_1.jpg)
 <br />
-![image](https://raw.githubusercontent.com/mingdev123/vue-admin/images/images_2.jpg)
+![image](https://raw.githubusercontent.com/imingdev/vue-admin/images/images_2.jpg)
 <br />
-![image](https://raw.githubusercontent.com/mingdev123/vue-admin/images/images_3.jpg)
+![image](https://raw.githubusercontent.com/imingdev/vue-admin/images/images_3.jpg)
 ***
 ##### 捐赠
-![image](https://raw.githubusercontent.com/mingdev123/vue-admin/images/images_4.jpg)
+![image](https://raw.githubusercontent.com/imingdev/vue-admin/images/images_4.jpg)
 
 喜欢这个项目？捐助一杯咖啡支持下（￥28）
 ***
